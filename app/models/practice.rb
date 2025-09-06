@@ -1,4 +1,7 @@
 class Practice < ApplicationRecord
+  has_many :staffs, dependent: :destroy
+  has_many :users, through: :staff
+
   validates :name, presence: true
   validates :address, presence: true
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
