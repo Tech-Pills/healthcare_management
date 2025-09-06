@@ -1,0 +1,12 @@
+<% content_for :title, "Editing practice" %>
+
+<h1>Editing practice</h1>
+
+<%= render "form", practice: @practice %>
+
+<br>
+
+<div>
+  <%= link_to "Show this practice", @practice %> |
+  <%= link_to "Back to practices", practices_path %>
+</div>

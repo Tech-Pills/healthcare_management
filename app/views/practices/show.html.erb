@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @practice %>
+
+<div>
+  <%= link_to "Edit this practice", edit_practice_path(@practice) %> |
+  <%= link_to "Back to practices", practices_path %>
+
+  <%= button_to "Destroy this practice", @practice, method: :delete %>
+</div>
