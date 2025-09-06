@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema[8.1].define(version: 2025_09_06_180056) do
   create_table "practices", force: :cascade do |t|
-    t.boolean "active"
+    t.boolean "active", default: true
     t.string "address"
     t.datetime "created_at", null: false
     t.string "email"
