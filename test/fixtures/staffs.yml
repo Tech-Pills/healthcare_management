@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+admin:
+  user: one
+  practice: one
+  first_name: MyString
+  last_name: MyString
+  role: admin
+  license_number: MyString
+  active: false
+
+doctor:
+  user: two
+  practice: two
+  first_name: MyString
+  last_name: MyString
+  role: doctor
+  license_number: MyString
+  active: true
