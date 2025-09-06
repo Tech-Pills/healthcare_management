@@ -1,6 +1,6 @@
 class Practice < ApplicationRecord
   has_many :staffs, dependent: :destroy
-  has_many :users, through: :staff
+  has_many :users, through: :staffs
 
   validates :name, presence: true
   validates :address, presence: true
