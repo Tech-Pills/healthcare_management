@@ -4,7 +4,7 @@ class Patient < ApplicationRecord
   validates :last_name, presence: true
   validates :date_of_birth, presence: true
   validates :phone, presence: true
-  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   normalizes :email, with: ->(e) { e.strip.downcase }
 
