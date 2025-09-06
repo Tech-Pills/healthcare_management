@@ -3,6 +3,7 @@ require "test_helper"
 class PracticesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @practice = practices(:one)
+    sign_in_as(users(:one))
   end
 
   test "should get index" do
