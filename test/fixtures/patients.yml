@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  date_of_birth: 2025-09-06
+  gender: MyString
+  phone: MyString
+  email: MyString@mail.com
+  address: MyText
+  emergency_contact_name: MyText
+  emergency_contact_phone: MyText
+  insurance_provider: MyString
+  insurance_policy_number: MyString
+  active: true
+  blood_type: O+
+
+two:
+  first_name: MyString
+  last_name: MyString
+  date_of_birth: 2025-09-06
+  gender: MyString
+  phone: MyString
+  email: MyString2@mail.com
+  address: MyText
+  emergency_contact_name: MyText
+  emergency_contact_phone: MyText
+  insurance_provider: MyString
+  insurance_policy_number: MyString
+  active: true
+  blood_type: AB+
