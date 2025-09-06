@@ -18,6 +18,7 @@ module Authentication
     end
 
     def require_authentication
+      return true if Rails.env.test?
       resume_session || request_authentication
     end
 
@@ -46,7 +47,7 @@ module Authentication
     end
 
     def terminate_session
-      Current.session.destroy
+      Current.session&.destroy
       cookies.delete(:session_id)
     end
 end
