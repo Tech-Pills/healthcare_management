@@ -17,7 +17,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create patient" do
     assert_difference("Patient.count") do
-      post patients_url, params: { patient: { active: @patient.active, address: @patient.address, blood_type: @patient.blood_type, date_of_birth: @patient.date_of_birth, email: @patient.email, emergency_contact_name: @patient.emergency_contact_name, emergency_contact_phone: @patient.emergency_contact_phone, first_name: @patient.first_name, gender: @patient.gender, insurance_policy_number: @patient.insurance_policy_number, insurance_provider: @patient.insurance_provider, last_name: @patient.last_name, phone: @patient.phone } }
+      post patients_url, params: { patient: { active: @patient.active, address: @patient.address, blood_type: @patient.blood_type, date_of_birth: @patient.date_of_birth, email: "unique_patient@example.com", emergency_contact_name: @patient.emergency_contact_name, emergency_contact_phone: @patient.emergency_contact_phone, first_name: @patient.first_name, gender: @patient.gender, insurance_policy_number: @patient.insurance_policy_number, insurance_provider: @patient.insurance_provider, last_name: @patient.last_name, practice_id: @patient.practice_id, phone: @patient.phone } }
     end
 
     assert_redirected_to patient_url(Patient.last)
@@ -34,7 +34,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update patient" do
-    patch patient_url(@patient), params: { patient: { active: @patient.active, address: @patient.address, blood_type: @patient.blood_type, date_of_birth: @patient.date_of_birth, email: @patient.email, emergency_contact_name: @patient.emergency_contact_name, emergency_contact_phone: @patient.emergency_contact_phone, first_name: @patient.first_name, gender: @patient.gender, insurance_policy_number: @patient.insurance_policy_number, insurance_provider: @patient.insurance_provider, last_name: @patient.last_name, phone: @patient.phone } }
+    patch patient_url(@patient), params: { patient: { active: @patient.active, address: @patient.address, blood_type: @patient.blood_type, date_of_birth: @patient.date_of_birth, email: @patient.email, emergency_contact_name: @patient.emergency_contact_name, emergency_contact_phone: @patient.emergency_contact_phone, first_name: @patient.first_name, gender: @patient.gender, insurance_policy_number: @patient.insurance_policy_number, insurance_provider: @patient.insurance_provider, last_name: @patient.last_name, practice_id: @patient.practice_id, phone: @patient.phone } }
     assert_redirected_to patient_url(@patient)
   end
 

@@ -26,7 +26,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_06_203450) do
     t.string "insurance_provider"
     t.string "last_name", null: false
     t.string "phone", null: false
+    t.integer "practice_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["practice_id"], name: "index_patients_on_practice_id"
   end
 
   create_table "practices", force: :cascade do |t|
@@ -71,6 +73,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_06_203450) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "patients", "practices"
   add_foreign_key "sessions", "users"
   add_foreign_key "staffs", "practices"
   add_foreign_key "staffs", "users"

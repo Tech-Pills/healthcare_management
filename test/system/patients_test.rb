@@ -27,6 +27,7 @@ class PatientsTest < ApplicationSystemTestCase
     fill_in "Insurance provider", with: @patient.insurance_provider
     fill_in "Last name", with: @patient.last_name
     fill_in "Phone", with: @patient.phone
+    select @patient.practice.name, from: "Practice"
     click_on "Create Patient"
 
     assert_text "Patient was successfully created"

@@ -77,6 +77,11 @@
   </div>
 
   <div>
+    <%= form.label :practice_id, "Practice", style: "display: block" %>
+    <%= form.collection_select :practice_id, Practice.all, :id, :name, { prompt: "Select a practice" } %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

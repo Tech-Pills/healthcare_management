@@ -1,6 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  practice: one
   first_name: MyString
   last_name: MyString
   date_of_birth: 2025-09-06
@@ -16,6 +17,7 @@ one:
   blood_type: O+
 
 two:
+  practice: two
   first_name: MyString
   last_name: MyString
   date_of_birth: 2025-09-06
