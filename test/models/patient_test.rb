@@ -82,11 +82,11 @@ class PatientTest < ActiveSupport::TestCase
     assert patient.blood_type_o_negative?
     assert_equal "o_negative", patient.blood_type
 
-    expected_types = %w[A+ A- B+ B- AB+ AB- O+ O-]
-    available_types = Patient.blood_types.values
+    expected_keys = %w[a_positive a_negative b_positive b_negative ab_positive ab_negative o_positive o_negative]
+    actual_keys = Patient.blood_types.keys
 
-    expected_types.each do |type|
-      assert_includes available_types, type
+    expected_keys.each do |key|
+      assert_includes actual_keys, key
     end
   end
 end
