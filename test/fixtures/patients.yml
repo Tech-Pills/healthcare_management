@@ -2,32 +2,32 @@
 
 one:
   practice: one
-  first_name: MyString
-  last_name: MyString
-  date_of_birth: 2025-09-06
-  gender: MyString
-  phone: MyString
-  email: MyString@mail.com
-  address: MyText
-  emergency_contact_name: MyText
-  emergency_contact_phone: MyText
-  insurance_provider: MyString
-  insurance_policy_number: MyString
+  first_name: Alice
+  last_name: Johnson
+  date_of_birth: 1990-05-15
+  gender: Female
+  phone: 555-0101
+  email: alice@example.com
+  address: 123 Main St
+  emergency_contact_name: Bob Johnson
+  emergency_contact_phone: 555-0102
+  insurance_provider: HealthCorp
+  insurance_policy_number: HC12345
   active: true
   blood_type: O+
 
 two:
   practice: two
-  first_name: MyString
-  last_name: MyString
-  date_of_birth: 2025-09-06
-  gender: MyString
-  phone: MyString
-  email: MyString2@mail.com
-  address: MyText
-  emergency_contact_name: MyText
-  emergency_contact_phone: MyText
-  insurance_provider: MyString
-  insurance_policy_number: MyString
+  first_name: Charlie
+  last_name: Smith
+  date_of_birth: 1985-08-22
+  gender: Male
+  phone: 555-0201
+  email: charlie@example.com
+  address: 456 Oak Ave
+  emergency_contact_name: Dean Smith
+  emergency_contact_phone: 555-0202
+  insurance_provider: MediPlus
+  insurance_policy_number: MP67890
   active: true
   blood_type: AB+
