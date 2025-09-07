@@ -1,5 +1,5 @@
 
-class Patient < ApplicationRecord
+class Patient < PatientsRecord
   belongs_to :practice
 
   has_many :appointments, dependent: :destroy
