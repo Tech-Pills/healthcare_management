@@ -45,7 +45,7 @@ class PatientTest < ActiveSupport::TestCase
     patient = Patient.new(
       practice: practices(:one),
       first_name: "John",
-      last_name: "Doe", 
+      last_name: "Doe",
       date_of_birth: 30.years.ago,
       phone: "555-1234",
       email: "  JOHN@EXAMPLE.COM  "
