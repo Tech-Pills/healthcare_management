@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_09_06_203450) do
+ActiveRecord::Schema[8.1].define(version: 2025_09_07_165246) do
+  create_table "appointments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "duration_minutes", default: 30
+    t.text "notes"
+    t.integer "patient_id", null: false
+    t.integer "practice_id", null: false
+    t.integer "provider_id", null: false
+    t.datetime "scheduled_at", null: false
+    t.string "status", default: "scheduled"
+    t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_appointments_on_patient_id"
+    t.index ["practice_id"], name: "index_appointments_on_practice_id"
+    t.index ["provider_id"], name: "index_appointments_on_provider_id"
+  end
+
   create_table "patients", force: :cascade do |t|
     t.boolean "active", default: true
     t.text "address"
@@ -73,6 +88,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_06_203450) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "appointments", "patients"
+  add_foreign_key "appointments", "practices"
+  add_foreign_key "appointments", "staffs", column: "provider_id"
   add_foreign_key "patients", "practices"
   add_foreign_key "sessions", "users"
   add_foreign_key "staffs", "practices"
