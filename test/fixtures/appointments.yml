@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  practice: one
+  patient: one
+  provider: admin
+  scheduled_at: 2025-09-07 13:52:46
+  duration_minutes: 30
+  status: scheduled
+  notes: MyText
+
+two:
+  practice: two
+  patient: two
+  provider: doctor
+  scheduled_at: 2025-09-07 13:52:46
+  duration_minutes: 60
+  status: scheduled
+  notes: MyText
