@@ -13,17 +13,17 @@
 
   <div>
     <%= form.label :practice_id, style: "display: block" %>
-    <%= form.text_field :practice_id %>
+    <%= form.collection_select :practice_id, Practice.all, :id, :name, { prompt: "Select a practice" } %>
   </div>
 
   <div>
     <%= form.label :patient_id, style: "display: block" %>
-    <%= form.text_field :patient_id %>
+    <%= form.collection_select :patient_id, Patient.all, :id, :full_name, { prompt: "Select a patient" } %>
   </div>
 
   <div>
     <%= form.label :provider_id, style: "display: block" %>
-    <%= form.text_field :provider_id %>
+    <%= form.collection_select :provider_id, Staff.all, :id, :full_name, { prompt: "Select a provider" } %>
   </div>
 
   <div>

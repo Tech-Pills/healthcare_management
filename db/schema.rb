@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_09_07_165246) do
+ActiveRecord::Schema[8.1].define(version: 2025_09_07_190533) do
   create_table "appointments", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "duration_minutes", default: 30
@@ -88,7 +88,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_07_165246) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
-  add_foreign_key "appointments", "patients"
   add_foreign_key "appointments", "practices"
   add_foreign_key "appointments", "staffs", column: "provider_id"
   add_foreign_key "patients", "practices"
