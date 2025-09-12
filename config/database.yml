@@ -12,7 +12,8 @@ default: &default
 development:
   primary:
     <<: *default
-    database: storage/development.sqlite3
+    tenanted: true
+    database: storage/development/%{tenant}.sqlite3
   patients:
     <<: *default
     database: storage/development_patients.sqlite3
@@ -28,7 +29,8 @@ development:
 test:
   primary:
     <<: *default
-    database: storage/test.sqlite3
+    tenanted: true
+    database: storage/test/%{tenant}.sqlite3
   patients:
     <<: *default
     database: storage/test_patients.sqlite3
@@ -44,6 +46,10 @@ production:
   primary:
     <<: *default
     database: storage/production.sqlite3
+  # primary_shard_one:
+  #   <<: *default
+  #   database: my_primary_shard_one
+  #   migrations_paths: db/migrate_shards
 
   # HIPAA-sensitive patient information
   # https://www.hhs.gov/hipaa/for-professionals/privacy/laws-regulations/index.html
@@ -60,6 +66,7 @@ production:
     username: patients_readonly
     password: <%= ENV['ROOT_READONLY_PASSWORD'] %>
     replica: true
+
   
   cache:
     <<: *default
