@@ -54,10 +54,23 @@ module Authentication
     end
 
     def set_tenant_context_from_session
-      return unless Current.session&.user&.practice
+      return unless Current.session
       
-      practice_slug = Current.session.user.practice.slug
-      ApplicationRecord.current_tenant = practice_slug
-      PatientsRecord.current_tenant = practice_slug
+      user_id = Current.session.user_id
+      found_practice_slug = nil
+      
+      Practice.all.each do |practice|
+        ApplicationRecord.with_tenant(practice.slug) do
+          if User.find_by(id: user_id)
+            found_practice_slug = practice.slug
+          end
+        end
+        break if found_practice_slug
+      end
+      
+      if found_practice_slug
+        ApplicationRecord.current_tenant = found_practice_slug
+        PatientsRecord.current_tenant = found_practice_slug
+      end
     end
 end

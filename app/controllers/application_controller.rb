@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
     practice = current_user.staff.practice
     if practice
-      ApplicationRecord.current_tenant = practice.tenant_name
+      ApplicationRecord.current_tenant = practice.slug
     end
   rescue ActiveRecord::Tenanted::NoTenantError
     redirect_to logout_path, alert: "Please create a practice to get started."

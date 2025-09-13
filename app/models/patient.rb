@@ -26,4 +26,9 @@ class Patient < PatientsRecord
   def full_name
     [ first_name, last_name ].compact.join(" ")
   end
+
+  def practice
+    return nil unless practice_id
+    @practice ||= Practice.find_by(id: practice_id)
+  end
 end
