@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_09_07_190533) do
+ActiveRecord::Schema[8.1].define(version: 2025_09_12_204623) do
   create_table "appointments", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "duration_minutes", default: 30
@@ -92,6 +92,4 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_07_190533) do
   add_foreign_key "appointments", "staffs", column: "provider_id"
   add_foreign_key "patients", "practices"
   add_foreign_key "sessions", "users"
-  add_foreign_key "staffs", "practices"
-  add_foreign_key "staffs", "users"
 end

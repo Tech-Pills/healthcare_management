@@ -5,9 +5,14 @@ class User < ApplicationRecord
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
-  delegate :practice, :full_name, :role, :active?, to: :staff, allow_nil: true
+  delegate :full_name, :role, :active?, to: :staff, allow_nil: true
 
   def staff?
     staff.present?
+  end
+
+  def practice
+    return nil unless ApplicationRecord.current_tenant
+    @practice ||= Practice.find_by(slug: ApplicationRecord.current_tenant)
   end
 end

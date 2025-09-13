@@ -10,6 +10,9 @@ default: &default
   timeout: 5000
 
 development:
+  global:
+    <<: *default
+    database: storage/development_global.sqlite3
   primary:
     <<: *default
     tenanted: true
@@ -27,6 +30,9 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
+  global:
+    <<: *default
+    database: storage/test_global.sqlite3
   primary:
     <<: *default
     tenanted: true

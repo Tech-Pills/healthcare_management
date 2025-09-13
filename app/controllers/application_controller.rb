@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     redirect_to logout_path, alert: "Please create a practice to get started."
   end
 
+  def current_user
+    Current.session&.user
+  end
+
   def current_practice
     @current_practice ||= current_user&.staff&.practice
   end
