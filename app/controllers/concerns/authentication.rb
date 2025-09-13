@@ -24,6 +24,8 @@ module Authentication
 
     def resume_session
       Current.session ||= find_session_by_cookie
+      set_tenant_context_from_session if Current.session
+      Current.session
     end
 
     def find_session_by_cookie
@@ -49,5 +51,13 @@ module Authentication
     def terminate_session
       Current.session&.destroy
       cookies.delete(:session_id)
+    end
+
+    def set_tenant_context_from_session
+      return unless Current.session&.user&.practice
+      
+      practice_slug = Current.session.user.practice.slug
+      ApplicationRecord.current_tenant = practice_slug
+      PatientsRecord.current_tenant = practice_slug
     end
 end

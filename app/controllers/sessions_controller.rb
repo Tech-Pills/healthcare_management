@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
     end
 
     ApplicationRecord.current_tenant = practice.slug
+    PatientsRecord.current_tenant = practice.slug
 
     if user = User.authenticate_by(params.permit(:email_address, :password))
       start_new_session_for user
