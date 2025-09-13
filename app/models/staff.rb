@@ -1,8 +1,8 @@
 class Staff < ApplicationRecord
   belongs_to :user
-  belongs_to :practice
-
   has_many :appointments, foreign_key: :provider_id, dependent: :destroy
+
+  validates :practice_id, presence: true
 
   enum :role, {
     admin: "admin",

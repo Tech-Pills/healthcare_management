@@ -19,11 +19,13 @@ development:
     database: storage/development/%{tenant}.sqlite3
   patients:
     <<: *default
-    database: storage/development_patients.sqlite3
+    tenanted: true
+    database: storage/development/patients_%{tenant}.sqlite3
     migrations_paths: db/patients_migrate
   patients_replica:
     <<: *default
-    database: storage/development_patients.sqlite3
+    tenanted: true
+    database: storage/development/patients_%{tenant}.sqlite3
     replica: true
 
 # Warning: The database defined as "test" will be erased and
@@ -39,11 +41,13 @@ test:
     database: storage/test/%{tenant}.sqlite3
   patients:
     <<: *default
-    database: storage/test_patients.sqlite3
+    tenanted: true
+    database: storage/test/patients_%{tenant}.sqlite3
     migrations_paths: db/patients_migrate
   patients_replica:
     <<: *default
-    database: storage/test_patients.sqlite3
+    tenanted: true
+    database: storage/test/patients_%{tenant}.sqlite3
     replica: true
 
 # Store production database in the storage/ directory, which by default

@@ -1,8 +1,8 @@
 
 class Patient < PatientsRecord
-  belongs_to :practice
-
   has_many :appointments, dependent: :destroy
+
+  validates :practice_id, presence: true
 
   validates :first_name, presence: true
   validates :last_name, presence: true

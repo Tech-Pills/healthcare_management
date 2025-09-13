@@ -1,5 +1,5 @@
-class PatientsRecord < ApplicationRecord
+class PatientsRecord < ActiveRecord::Base
   self.abstract_class = true
-
-  connects_to database: { writing: :patients, reading: :patients_replica }
+  
+  tenanted :patients
 end

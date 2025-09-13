@@ -6,6 +6,14 @@ class SessionsController < ApplicationController
   end
 
   def create
+    practice = Practice.find_by(id: params[:practice_id])
+    unless practice
+      redirect_to new_session_path, alert: "Please select a valid practice."
+      return
+    end
+
+    ApplicationRecord.current_tenant = practice.slug
+
     if user = User.authenticate_by(params.permit(:email_address, :password))
       start_new_session_for user
       redirect_to after_authentication_url
