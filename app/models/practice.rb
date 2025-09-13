@@ -4,8 +4,13 @@ class Practice < GlobalRecord
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :phone, presence: true
   validates :license_number, presence: true, uniqueness: true
+  validates :slug, presence: true, uniqueness: true
 
-  def slug
-    name.downcase.gsub(/[^a-z0-9]+/, "-")
+  before_save :generate_slug
+
+  private
+
+  def generate_slug
+    self.slug = name.downcase.gsub(/[^a-z0-9]+/, "-") if name_changed?
   end
 end
