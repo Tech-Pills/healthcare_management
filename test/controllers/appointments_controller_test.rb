@@ -2,7 +2,7 @@ require "test_helper"
 
 class AppointmentsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    load_tenant_fixtures([ 'staffs', 'patients', 'appointments' ])
+    load_tenant_fixtures([ "staffs", "patients", "appointments" ])
     @appointment = Appointment.find(1)
   end
 

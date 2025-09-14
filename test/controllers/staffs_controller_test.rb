@@ -2,7 +2,7 @@ require "test_helper"
 
 class StaffsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    load_tenant_fixtures([ 'staffs' ])
+    load_tenant_fixtures([ "staffs" ])
     @staff = Staff.find(1)
   end
 

@@ -2,7 +2,7 @@ require "test_helper"
 
 class AppointmentTest < ActiveSupport::TestCase
   setup do
-    load_tenant_fixtures([ 'staffs', 'patients' ])
+    load_tenant_fixtures([ "staffs", "patients" ])
   end
 
   test "belongs to practice, patient, and provider" do

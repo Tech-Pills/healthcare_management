@@ -2,7 +2,7 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   def setup
-    load_tenant_fixtures([ 'staffs' ])
+    load_tenant_fixtures([ "staffs" ])
   end
 
   test "downcases and strips email_address" do

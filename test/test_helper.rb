@@ -4,8 +4,8 @@ require "rails/test_help"
 require "active_record/tenanted/testing"
 require_relative "test_helpers/session_test_helper"
 
-ApplicationRecord.current_tenant = 'test-medical-center'
-PatientsRecord.current_tenant = 'test-medical-center'
+ApplicationRecord.current_tenant = "test-medical-center"
+PatientsRecord.current_tenant = "test-medical-center"
 
 module ActiveSupport
   class TestCase
@@ -16,7 +16,7 @@ module ActiveSupport
     fixtures :practices, :users
 
     def before_setup
-      # Use gem's tenant_genesis pattern but for both tenant classes
+      # Use gem"s tenant_genesis pattern but for both tenant classes
       tenant_genesis(ApplicationRecord)
       tenant_genesis(PatientsRecord)
 
@@ -28,11 +28,11 @@ module ActiveSupport
 
     def tenant_genesis(klass)
       begin
-        klass.destroy_tenant('test-medical-center')
+        klass.destroy_tenant("test-medical-center")
       rescue ActiveRecord::Tenanted::TenantDoesNotExistError
         Rails.logger.info "#{klass} tenant does not exist yet: test-medical-center"
       end
-      klass.create_tenant('test-medical-center')
+      klass.create_tenant("test-medical-center")
     end
 
     def ensure_global_fixtures
@@ -51,12 +51,12 @@ module ActiveSupport
         next unless model_class
 
         if model_class < ApplicationRecord
-          ApplicationRecord.with_tenant('test-medical-center') do
-            ActiveRecord::FixtureSet.create_fixtures('test/fixtures', [ fixture_name ])
+          ApplicationRecord.with_tenant("test-medical-center") do
+            ActiveRecord::FixtureSet.create_fixtures("test/fixtures", [ fixture_name ])
           end
         elsif model_class < PatientsRecord
-          PatientsRecord.with_tenant('test-medical-center') do
-            ActiveRecord::FixtureSet.create_fixtures('test/fixtures', [ fixture_name ])
+          PatientsRecord.with_tenant("test-medical-center") do
+            ActiveRecord::FixtureSet.create_fixtures("test/fixtures", [ fixture_name ])
           end
         end
       end
