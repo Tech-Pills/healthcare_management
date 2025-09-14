@@ -10,6 +10,31 @@ class Practice < GlobalRecord
   after_create :setup_tenants
   before_destroy :cleanup_tenants
 
+  def staffs
+    return Staff.none unless slug.present?
+    ApplicationRecord.with_tenant(slug) { Staff.where(practice_id: id) }
+  end
+
+  def patients
+    return Patient.none unless slug.present?
+    PatientsRecord.with_tenant(slug) { Patient.where(practice_id: id) }
+  end
+
+  def appointments
+    return Appointment.none unless slug.present?
+    ApplicationRecord.with_tenant(slug) { Appointment.where(practice_id: id) }
+  end
+
+  def users
+    return User.none unless slug.present?
+    
+    user_ids = ApplicationRecord.with_tenant(slug) do
+      Staff.where(practice_id: id).pluck(:user_id)
+    end
+    
+    User.where(id: user_ids)
+  end
+
   private
 
   def generate_slug
@@ -20,6 +45,8 @@ class Practice < GlobalRecord
 
   def setup_tenants
     return unless slug.present?
+    
+    return if Rails.env.test?
     
     begin
       ApplicationRecord.create_tenant(slug)

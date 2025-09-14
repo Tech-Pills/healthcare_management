@@ -2,7 +2,7 @@ require "test_helper"
 
 class StaffsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @staff = staffs(:admin)
+    @staff = Staff.find_by(id: 1)
   end
 
   test "should get index" do

@@ -2,7 +2,7 @@ require "test_helper"
 
 class AppointmentsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @appointment = appointments(:one)
+    @appointment = Appointment.find_by(id: 1)
   end
 
   test "should get index" do
