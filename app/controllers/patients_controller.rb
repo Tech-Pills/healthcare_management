@@ -68,5 +68,4 @@ class PatientsController < ApplicationController
     def patient_params
       params.expect(patient: [ :first_name, :last_name, :date_of_birth, :gender, :phone, :email, :address, :emergency_contact_name, :emergency_contact_phone, :insurance_provider, :insurance_policy_number, :active, :blood_type, :practice_id ])
     end
-
 end

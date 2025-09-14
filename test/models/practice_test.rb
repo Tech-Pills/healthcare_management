@@ -38,7 +38,7 @@ class PracticeTest < ActiveSupport::TestCase
       email: "first@example.com",
       license_number: "UNIQUE-001"
     )
-    
+
     new_practice = Practice.new(
       name: "New Practice",
       address: "123 New St",

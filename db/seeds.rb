@@ -23,7 +23,7 @@ puts "Using tenant: #{tenant_name} (automatically created by Practice model)"
 sample_patients = [
     {
       first_name: "John",
-      last_name: "Doe", 
+      last_name: "Doe",
       date_of_birth: 35.years.ago.to_date,
       phone: "(555) 111-1111",
       email: "john.doe@example.com",
@@ -34,7 +34,7 @@ sample_patients = [
     {
       first_name: "Sarah",
       last_name: "Smith",
-      date_of_birth: 28.years.ago.to_date, 
+      date_of_birth: 28.years.ago.to_date,
       phone: "(555) 222-2222",
       email: "sarah.smith@example.com",
       address: "321 Health Ave, City, NY 10004",
@@ -71,7 +71,7 @@ PatientsRecord.with_tenant(tenant_name) do
       date_of_birth: patient_data[:date_of_birth]
     ) do |p|
       p.phone = patient_data[:phone]
-      p.email = patient_data[:email] 
+      p.email = patient_data[:email]
       p.address = patient_data[:address]
       p.emergency_contact_name = patient_data[:emergency_contact_name]
       p.emergency_contact_phone = patient_data[:emergency_contact_phone]
@@ -91,7 +91,7 @@ end
 # Create appointments in ApplicationRecord tenant context
 ApplicationRecord.with_tenant(tenant_name) do
   staff_member = Staff.first
-  
+
   if staff_member && patient_ids.any?
     patient_ids.each_with_index do |patient_id, index|
       appointment = Appointment.find_or_create_by!(
@@ -117,7 +117,7 @@ puts ""
 puts "Login credentials:"
 puts "  Email: admin@example.com"
 puts "  Password: password123"
-puts "  Practice: #{practice.name}" 
+puts "  Practice: #{practice.name}"
 puts ""
 puts "Console usage:"
 puts "  # Global models (not tenanted):"
@@ -129,7 +129,7 @@ puts "  PatientsRecord.current_tenant = '#{practice.slug}'"
 puts ""
 puts "  # Then you can access tenanted models:"
 puts "  User.all            # Users in current tenant"
-puts "  Staff.all           # Staff in current tenant" 
+puts "  Staff.all           # Staff in current tenant"
 puts "  Patient.all         # Patients in current tenant (needs PatientsRecord context)"
 puts "  Appointment.all     # Appointments in current tenant"
 puts ""

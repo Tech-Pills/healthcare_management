@@ -27,11 +27,11 @@ class Practice < GlobalRecord
 
   def users
     return User.none unless slug.present?
-    
+
     user_ids = ApplicationRecord.with_tenant(slug) do
       Staff.where(practice_id: id).pluck(:user_id)
     end
-    
+
     User.where(id: user_ids)
   end
 
@@ -45,9 +45,9 @@ class Practice < GlobalRecord
 
   def setup_tenants
     return unless slug.present?
-    
+
     return if Rails.env.test?
-    
+
     begin
       ApplicationRecord.create_tenant(slug)
     rescue ActiveRecord::Tenanted::TenantExistsError
@@ -56,7 +56,7 @@ class Practice < GlobalRecord
       Rails.logger.error "Failed to create ApplicationRecord tenant for #{slug}: #{e.message}"
       raise e
     end
-    
+
     begin
       PatientsRecord.create_tenant(slug)
     rescue ActiveRecord::Tenanted::TenantExistsError
@@ -69,14 +69,14 @@ class Practice < GlobalRecord
 
   def cleanup_tenants
     return unless slug.present?
-    
+
     begin
       ApplicationRecord.destroy_tenant(slug)
     rescue => e
       Rails.logger.error "Failed to destroy ApplicationRecord tenant for #{slug}: #{e.message}"
       raise e
     end
-    
+
     begin
       PatientsRecord.destroy_tenant(slug)
     rescue => e

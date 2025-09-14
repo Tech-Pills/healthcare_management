@@ -5,7 +5,7 @@ class PatientTest < ActiveSupport::TestCase
     patient = Patient.create!(
       practice_id: 1, # Use fixture practice id
       first_name: "John",
-      last_name: "Doe", 
+      last_name: "Doe",
       date_of_birth: 30.years.ago,
       phone: "555-1234",
       email: "john.doe@example.com"
@@ -19,7 +19,7 @@ class PatientTest < ActiveSupport::TestCase
     patient = Patient.create!(
       practice_id: 1,
       first_name: "Jane",
-      last_name: "Smith", 
+      last_name: "Smith",
       date_of_birth: 25.years.ago,
       phone: "555-5678",
       email: "jane.smith@example.com"
@@ -43,7 +43,7 @@ class PatientTest < ActiveSupport::TestCase
     patient = Patient.create!(
       practice_id: 1,
       first_name: "Email",
-      last_name: "Test", 
+      last_name: "Test",
       date_of_birth: 28.years.ago,
       phone: "555-9999",
       email: "email.test@example.com"
@@ -96,7 +96,7 @@ class PatientTest < ActiveSupport::TestCase
     patient = Patient.create!(
       practice_id: 1,
       first_name: "Blood",
-      last_name: "Type", 
+      last_name: "Type",
       date_of_birth: 35.years.ago,
       phone: "555-0000",
       email: "blood.type@example.com"
