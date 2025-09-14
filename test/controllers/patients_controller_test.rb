@@ -2,7 +2,32 @@ require "test_helper"
 
 class PatientsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @patient = Patient.find_by(id: 1)
+    load_patient_fixtures
+    @patient = Patient.find(1)
+  end
+
+  private
+
+  def load_patient_fixtures
+    PatientsRecord.with_tenant('test-medical-center') do
+      Patient.create!(
+        id: 1,
+        practice_id: 1,
+        first_name: "John",
+        last_name: "Doe",
+        date_of_birth: Date.new(1980, 1, 1),
+        gender: "Male",
+        phone: "555-0123", 
+        email: "john.doe@example.com",
+        address: "123 Test St",
+        emergency_contact_name: "Jane Doe",
+        emergency_contact_phone: "555-0124",
+        insurance_provider: "Test Insurance",
+        insurance_policy_number: "POL123",
+        blood_type: "o_positive",
+        active: true
+      ) unless Patient.exists?(1)
+    end
   end
 
   test "should get index" do

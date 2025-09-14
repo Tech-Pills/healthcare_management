@@ -13,7 +13,13 @@ class PracticeTest < ActiveSupport::TestCase
   end
 
   test "validates email format" do
-    practice = practices(:one)
+    practice = Practice.create!(
+      name: "Test Practice",
+      address: "123 Test St",
+      phone: "555-0123",
+      email: "test@example.com",
+      license_number: "TEST-EMAIL"
+    )
 
     practice.email = "invalid-email"
     assert_not practice.valid?
@@ -25,7 +31,14 @@ class PracticeTest < ActiveSupport::TestCase
   end
 
   test "validates license_number uniqueness" do
-    practice = practices(:one)
+    practice = Practice.create!(
+      name: "First Practice",
+      address: "123 First St",
+      phone: "555-0001",
+      email: "first@example.com",
+      license_number: "UNIQUE-001"
+    )
+    
     new_practice = Practice.new(
       name: "New Practice",
       address: "123 New St",
