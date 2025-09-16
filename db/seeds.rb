@@ -87,7 +87,7 @@ practices.each do |practice|
   tenant_name = practice.slug
   puts "  Creating patients for #{practice.name}..."
 
-  PatientsRecord.with_tenant(tenant_name) do
+  ApplicationRecord.with_tenant(tenant_name) do
     sample_patients.each do |patient_data|
       patient = Patient.find_or_create_by!(
         first_name: patient_data[:first_name],
@@ -103,15 +103,9 @@ practices.each do |practice|
       end
       puts "    Created/found patient: #{patient.full_name}"
     end
-  end
 
-  puts "  Creating sample appointments for #{practice.name}..."
-  patient_ids = []
-  PatientsRecord.with_tenant(tenant_name) do
+    puts "  Creating sample appointments for #{practice.name}..."
     patient_ids = Patient.limit(2).pluck(:id)
-  end
-
-  ApplicationRecord.with_tenant(tenant_name) do
     staff_member = Staff.first
 
     if staff_member && patient_ids.any?
@@ -154,11 +148,10 @@ puts "  # Set tenant context for specific practice:"
 practices.each do |practice|
   puts "  # For #{practice.name}:"
   puts "  ApplicationRecord.current_tenant = '#{practice.slug}'"
-  puts "  PatientsRecord.current_tenant = '#{practice.slug}'"
   puts ""
 end
 puts "  # Then you can access tenanted models:"
 puts "  User.all            # Users in current tenant"
 puts "  Staff.all           # Staff in current tenant"
-puts "  Patient.all         # Patients in current tenant (needs PatientsRecord context)"
+puts "  Patient.all         # Patients in current tenant"
 puts "  Appointment.all     # Appointments in current tenant"

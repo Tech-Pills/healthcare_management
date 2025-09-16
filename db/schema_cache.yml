@@ -395,6 +395,16 @@ columns:
     default_function:
     collation:
     comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: tenant
+    cast_type: *6
+    sql_type_metadata: *7
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
   - *8
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
@@ -631,4 +641,4 @@ indexes:
     nulls_not_distinct:
     comment:
     valid: true
-version: 20250913132233
+version: 20250916225048
