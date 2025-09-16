@@ -1,5 +1,5 @@
 
-class Patient < PatientsRecord
+class Patient < ApplicationRecord
   has_many :appointments, dependent: :destroy
 
   validates :practice_id, presence: true

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_09_13_132304) do
+ActiveRecord::Schema[8.1].define(version: 2025_09_15_225617) do
   create_table "appointments", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "duration_minutes", default: 30
@@ -62,6 +62,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_13_132304) do
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
+    t.string "tenant"
     t.datetime "updated_at", null: false
     t.string "user_agent"
     t.integer "user_id", null: false

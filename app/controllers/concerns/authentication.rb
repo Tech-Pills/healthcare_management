@@ -24,7 +24,6 @@ module Authentication
 
     def resume_session
       Current.session ||= find_session_by_cookie
-      set_tenant_context_from_session if Current.session
       Current.session
     end
 
@@ -53,24 +52,4 @@ module Authentication
       cookies.delete(:session_id)
     end
 
-    def set_tenant_context_from_session
-      return unless Current.session
-
-      user_id = Current.session.user_id
-      found_practice_slug = nil
-
-      Practice.all.each do |practice|
-        ApplicationRecord.with_tenant(practice.slug) do
-          if User.find_by(id: user_id)
-            found_practice_slug = practice.slug
-          end
-        end
-        break if found_practice_slug
-      end
-
-      if found_practice_slug
-        ApplicationRecord.current_tenant = found_practice_slug
-        PatientsRecord.current_tenant = found_practice_slug
-      end
-    end
 end

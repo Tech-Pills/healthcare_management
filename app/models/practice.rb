@@ -57,14 +57,6 @@ class Practice < GlobalRecord
       raise e
     end
 
-    begin
-      PatientsRecord.create_tenant(slug)
-    rescue ActiveRecord::Tenanted::TenantExistsError
-      Rails.logger.info "PatientsRecord tenant already exists: #{slug}"
-    rescue => e
-      Rails.logger.error "Failed to create PatientsRecord tenant for #{slug}: #{e.message}"
-      raise e
-    end
   end
 
   def cleanup_tenants

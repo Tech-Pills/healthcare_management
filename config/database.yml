@@ -17,16 +17,6 @@ development:
     <<: *default
     tenanted: true
     database: storage/development/%{tenant}.sqlite3
-  patients:
-    <<: *default
-    tenanted: true
-    database: storage/development/patients_%{tenant}.sqlite3
-    migrations_paths: db/patients_migrate
-  patients_replica:
-    <<: *default
-    tenanted: true
-    database: storage/development/patients_%{tenant}.sqlite3
-    replica: true
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -39,16 +29,6 @@ test:
     <<: *default
     tenanted: true
     database: storage/test/%{tenant}.sqlite3
-  patients:
-    <<: *default
-    tenanted: true
-    database: storage/test/patients_%{tenant}.sqlite3
-    migrations_paths: db/patients_migrate
-  patients_replica:
-    <<: *default
-    tenanted: true
-    database: storage/test/patients_%{tenant}.sqlite3
-    replica: true
 
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
@@ -61,21 +41,6 @@ production:
   #   database: my_primary_shard_one
   #   migrations_paths: db/migrate_shards
 
-  # HIPAA-sensitive patient information
-  # https://www.hhs.gov/hipaa/for-professionals/privacy/laws-regulations/index.html
-  patients:
-    <<: *default
-    database: storage/production_patients.sqlite3
-    username: patients_root
-    password: <%= ENV['PATIENTS_ROOT_PASSWORD'] %>
-    migrations_paths: db/patients_migrate
-  patients_replica:
-    <<: *default
-    database: storage/production_patients.sqlite3
-    # database: storage/production_patients_replica.sqlite3
-    username: patients_readonly
-    password: <%= ENV['ROOT_READONLY_PASSWORD'] %>
-    replica: true
 
   
   cache:
