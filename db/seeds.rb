@@ -39,28 +39,74 @@ practices_data.each do |practice_data|
   practices << practice
 end
 
-sample_patients = [
+patients_by_practice = {
+  "development-clinic" => [
     {
-      first_name: "John",
-      last_name: "Doe",
-      date_of_birth: 35.years.ago.to_date,
+      first_name: "Alex",
+      last_name: "Developer",
+      date_of_birth: 32.years.ago.to_date,
       phone: "(555) 111-1111",
-      email: "john.doe@example.com",
-      address: "789 Patient St, City, NY 10003",
-      emergency_contact_name: "Jane Doe",
+      email: "alex.developer@devclinic.com",
+      address: "101 Code Street, Dev City, ST 12345",
+      emergency_contact_name: "Jamie Developer",
       emergency_contact_phone: "(555) 111-1112"
     },
     {
-      first_name: "Sarah",
-      last_name: "Smith",
+      first_name: "Taylor",
+      last_name: "Tester",
+      date_of_birth: 29.years.ago.to_date,
+      phone: "(555) 111-2222",
+      email: "taylor.tester@devclinic.com",
+      address: "102 Debug Ave, Dev City, ST 12345",
+      emergency_contact_name: "Casey Tester",
+      emergency_contact_phone: "(555) 111-2223"
+    }
+  ],
+  "metro-health-center" => [
+    {
+      first_name: "Jordan",
+      last_name: "Metro",
       date_of_birth: 28.years.ago.to_date,
-      phone: "(555) 222-2222",
-      email: "sarah.smith@example.com",
-      address: "321 Health Ave, City, NY 10004",
-      emergency_contact_name: "Mike Smith",
-      emergency_contact_phone: "(555) 222-2223"
+      phone: "(555) 234-1111",
+      email: "jordan.metro@metrohealth.com",
+      address: "500 Downtown Plaza, Metro City, NY 10001",
+      emergency_contact_name: "River Metro",
+      emergency_contact_phone: "(555) 234-1112"
+    },
+    {
+      first_name: "Sage",
+      last_name: "Urban",
+      date_of_birth: 35.years.ago.to_date,
+      phone: "(555) 234-2222",
+      email: "sage.urban@metrohealth.com",
+      address: "501 City Center, Metro City, NY 10001",
+      emergency_contact_name: "Quinn Urban",
+      emergency_contact_phone: "(555) 234-2223"
+    }
+  ],
+  "sunset-medical-group" => [
+    {
+      first_name: "Phoenix",
+      last_name: "Sunset",
+      date_of_birth: 31.years.ago.to_date,
+      phone: "(555) 345-1111",
+      email: "phoenix.sunset@sunsetmedical.com",
+      address: "900 Sunset Drive, West Hills, CA 90210",
+      emergency_contact_name: "Sky Sunset",
+      emergency_contact_phone: "(555) 345-1112"
+    },
+    {
+      first_name: "Ocean",
+      last_name: "Coastal",
+      date_of_birth: 26.years.ago.to_date,
+      phone: "(555) 345-2222",
+      email: "ocean.coastal@sunsetmedical.com",
+      address: "901 Pacific View, West Hills, CA 90210",
+      emergency_contact_name: "Bay Coastal",
+      emergency_contact_phone: "(555) 345-2223"
     }
   ]
+}
 
 practices.each do |practice|
   tenant_name = practice.slug
@@ -88,7 +134,8 @@ practices.each do |practice|
   puts "  Creating patients for #{practice.name}..."
 
   ApplicationRecord.with_tenant(tenant_name) do
-    sample_patients.each do |patient_data|
+    practice_patients = patients_by_practice[tenant_name] || []
+    practice_patients.each do |patient_data|
       patient = Patient.find_or_create_by!(
         first_name: patient_data[:first_name],
         last_name: patient_data[:last_name],
