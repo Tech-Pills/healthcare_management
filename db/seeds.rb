@@ -65,7 +65,7 @@ sample_patients = [
 practices.each do |practice|
   tenant_name = practice.slug
   puts "Setting up tenant: #{tenant_name} for #{practice.name}"
-  
+
   ApplicationRecord.with_tenant(tenant_name) do
     admin_user = User.find_or_create_by!(email_address: "admin@example.com") do |u|
       u.password = "password123"

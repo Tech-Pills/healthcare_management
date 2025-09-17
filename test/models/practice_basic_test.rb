@@ -78,7 +78,6 @@ class PracticeBasicTest < ActiveSupport::TestCase
 
   test "skips tenant creation in test environment" do
     initial_app_tenants = ApplicationRecord.tenants.size
-    initial_patient_tenants = PatientsRecord.tenants.size
 
     practice = Practice.create!(
       name: "Auto Tenant Practice",
@@ -89,6 +88,5 @@ class PracticeBasicTest < ActiveSupport::TestCase
     )
 
     assert_equal initial_app_tenants, ApplicationRecord.tenants.size
-    assert_equal initial_patient_tenants, PatientsRecord.tenants.size
   end
 end

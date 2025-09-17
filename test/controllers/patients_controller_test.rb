@@ -2,8 +2,7 @@ require "test_helper"
 
 class PatientsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    load_tenant_fixtures([ "patients" ])
-    @patient = Patient.find(1)
+    @patient = patients(:one)
   end
 
   test "should get index" do

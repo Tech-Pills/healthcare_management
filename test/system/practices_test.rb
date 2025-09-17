@@ -16,9 +16,9 @@ class PracticesTest < ApplicationSystemTestCase
 
     check "Active" if @practice.active
     fill_in "Address", with: @practice.address
-    fill_in "Email", with: @practice.email
+    fill_in "Email", with: "unique@systemtest.com"
     fill_in "License number", with: "UniqueSystemLicense"
-    fill_in "Name", with: @practice.name
+    fill_in "Name", with: "Unique System Test Practice"
     fill_in "Phone", with: @practice.phone
     click_on "Create Practice"
 

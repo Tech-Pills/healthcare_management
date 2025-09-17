@@ -7,8 +7,8 @@ class Practice < GlobalRecord
   validates :slug, presence: true, uniqueness: true
 
   before_validation :generate_slug
-  after_create :setup_tenants
-  before_destroy :cleanup_tenants
+  after_create :setup_tenants, unless: -> { Rails.env.test? }
+  before_destroy :cleanup_tenants, unless: -> { Rails.env.test? }
 
   def staffs
     return Staff.none unless slug.present?
@@ -17,7 +17,7 @@ class Practice < GlobalRecord
 
   def patients
     return Patient.none unless slug.present?
-    PatientsRecord.with_tenant(slug) { Patient.where(practice_id: id) }
+    ApplicationRecord.with_tenant(slug) { Patient.where(practice_id: id) }
   end
 
   def appointments
@@ -56,7 +56,6 @@ class Practice < GlobalRecord
       Rails.logger.error "Failed to create ApplicationRecord tenant for #{slug}: #{e.message}"
       raise e
     end
-
   end
 
   def cleanup_tenants
@@ -66,13 +65,6 @@ class Practice < GlobalRecord
       ApplicationRecord.destroy_tenant(slug)
     rescue => e
       Rails.logger.error "Failed to destroy ApplicationRecord tenant for #{slug}: #{e.message}"
-      raise e
-    end
-
-    begin
-      PatientsRecord.destroy_tenant(slug)
-    rescue => e
-      Rails.logger.error "Failed to destroy PatientsRecord tenant for #{slug}: #{e.message}"
       raise e
     end
   end

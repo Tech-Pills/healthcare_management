@@ -8,7 +8,7 @@ admin:
   last_name: Admin
   role: admin
   license_number: ADMIN123
-  active: false
+  active: true
 
 doctor:
   id: 2
