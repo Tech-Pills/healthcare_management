@@ -2,7 +2,7 @@ class Staff < ApplicationRecord
   belongs_to :user
   belongs_to :practice
 
-  has_many :appointments, foreign_key: :provider_id, dependent: :destroy
+  has_many :appointments, foreign_key: :provider_id, disable_joins: true
 
   enum :role, {
     admin: "admin",

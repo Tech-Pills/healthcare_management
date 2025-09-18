@@ -1,4 +1,4 @@
-class Appointment < ApplicationRecord
+class Appointment < ShardRecord
   belongs_to :practice
   belongs_to :patient
   belongs_to :provider, class_name: "Staff"

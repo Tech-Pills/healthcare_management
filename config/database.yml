@@ -13,6 +13,14 @@ development:
   primary:
     <<: *default
     database: storage/development.sqlite3
+  primary_shard_one:
+    <<: *default
+    database: storage/development_shard_one.sqlite3
+    migrations_paths: db/migrate_shards
+  primary_shard_two:
+    <<: *default
+    database: storage/development_shard_two.sqlite3
+    migrations_paths: db/migrate_shards
   patients:
     <<: *default
     database: storage/development_patients.sqlite3
@@ -29,6 +37,14 @@ test:
   primary:
     <<: *default
     database: storage/test.sqlite3
+  primary_shard_one:
+    <<: *default
+    database: storage/test_shard_one.sqlite3
+    migrations_paths: db/migrate_shards
+  primary_shard_two:
+    <<: *default
+    database: storage/test_shard_two.sqlite3
+    migrations_paths: db/migrate_shards
   patients:
     <<: *default
     database: storage/test_patients.sqlite3
