@@ -17,7 +17,7 @@ class PracticesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create practice" do
     assert_difference("Practice.count") do
-      post practices_url, params: { practice: { active: @practice.active, address: @practice.address, email: @practice.email, license_number: "NewLicense", name: @practice.name, phone: @practice.phone } }
+      post practices_url, params: { practice: { active: @practice.active, address: @practice.address, email: @practice.email, license_number: "NewLicense", name: "New Practice Name", phone: @practice.phone } }
     end
 
     assert_redirected_to practice_url(Practice.last)

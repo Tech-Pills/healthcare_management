@@ -2,21 +2,35 @@ require "test_helper"
 
 class PatientTest < ActiveSupport::TestCase
   test "belongs to practice" do
-    patient = patients(:one)
+    patient = Patient.create!(
+      practice_id: 1, # Use fixture practice id
+      first_name: "John",
+      last_name: "Doe",
+      date_of_birth: 30.years.ago,
+      phone: "555-1234",
+      email: "john.doe@example.com"
+    )
 
     assert_respond_to patient, :practice
     assert patient.practice.is_a?(Practice)
   end
 
   test "has many appointments" do
-    patient = patients(:one)
+    patient = Patient.create!(
+      practice_id: 1,
+      first_name: "Jane",
+      last_name: "Smith",
+      date_of_birth: 25.years.ago,
+      phone: "555-5678",
+      email: "jane.smith@example.com"
+    )
 
     assert_respond_to patient, :appointments
     assert patient.appointments.respond_to?(:each)
   end
 
   test "validates presence of required fields" do
-    patient = Patient.new(practice: practices(:one))
+    patient = Patient.new(practice_id: 1)
 
     assert_not patient.valid?
     assert_includes patient.errors[:first_name], "can't be blank"
@@ -26,7 +40,14 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   test "validates email format when provided" do
-    patient = patients(:one)
+    patient = Patient.create!(
+      practice_id: 1,
+      first_name: "Email",
+      last_name: "Test",
+      date_of_birth: 28.years.ago,
+      phone: "555-9999",
+      email: "email.test@example.com"
+    )
 
     patient.email = "invalid-email"
     assert_not patient.valid?
@@ -43,7 +64,7 @@ class PatientTest < ActiveSupport::TestCase
 
   test "normalizes email" do
     patient = Patient.new(
-      practice: practices(:one),
+      practice_id: 1,
       first_name: "John",
       last_name: "Doe",
       date_of_birth: 30.years.ago,
@@ -72,7 +93,14 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   test "blood_type enum with prefix" do
-    patient = patients(:one)
+    patient = Patient.create!(
+      practice_id: 1,
+      first_name: "Blood",
+      last_name: "Type",
+      date_of_birth: 35.years.ago,
+      phone: "555-0000",
+      email: "blood.type@example.com"
+    )
 
     patient.blood_type_a_positive!
     assert patient.blood_type_a_positive?

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_09_07_190533) do
+ActiveRecord::Schema[8.1].define(version: 2025_09_16_231940) do
   create_table "appointments", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "duration_minutes", default: 30
@@ -54,12 +54,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_07_190533) do
     t.string "license_number"
     t.string "name"
     t.string "phone"
+    t.string "slug"
     t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_practices_on_slug", unique: true
   end
 
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
+    t.string "tenant"
     t.datetime "updated_at", null: false
     t.string "user_agent"
     t.integer "user_id", null: false
@@ -88,10 +91,5 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_07_190533) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
-  add_foreign_key "appointments", "practices"
-  add_foreign_key "appointments", "staffs", column: "provider_id"
-  add_foreign_key "patients", "practices"
-  add_foreign_key "sessions", "users"
-  add_foreign_key "staffs", "practices"
-  add_foreign_key "staffs", "users"
+  add_foreign_key "appointments", "patients", on_delete: :cascade
 end

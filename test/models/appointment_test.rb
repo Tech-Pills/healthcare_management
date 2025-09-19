@@ -2,7 +2,13 @@ require "test_helper"
 
 class AppointmentTest < ActiveSupport::TestCase
   test "belongs to practice, patient, and provider" do
-    appointment = appointments(:one)
+    appointment = Appointment.create!(
+      practice_id: practices(:one).id,
+      patient: patients(:one),
+      provider: staffs(:admin),
+      scheduled_at: 1.day.from_now,
+      duration_minutes: 30
+    )
 
     assert_respond_to appointment, :practice
     assert_respond_to appointment, :patient
@@ -15,9 +21,9 @@ class AppointmentTest < ActiveSupport::TestCase
 
   test "validates presence of scheduled_at" do
     appointment = Appointment.new(
-      practice: practices(:one),
-      patient: patients(:one),
-      provider: staffs(:admin)
+      practice_id: practices(:one).id,
+      patient_id: patients(:one).id,
+      provider_id: staffs(:admin).id
     )
 
     assert_not appointment.valid?
@@ -25,7 +31,13 @@ class AppointmentTest < ActiveSupport::TestCase
   end
 
   test "validates duration_minutes is positive integer" do
-    appointment = appointments(:one)
+    appointment = Appointment.create!(
+      practice_id: practices(:one).id,
+      patient: patients(:one),
+      provider: staffs(:admin),
+      scheduled_at: 1.day.from_now,
+      duration_minutes: 45
+    )
 
     appointment.duration_minutes = 0
     assert_not appointment.valid?
@@ -45,7 +57,13 @@ class AppointmentTest < ActiveSupport::TestCase
   end
 
   test "status enum works correctly" do
-    appointment = appointments(:one)
+    appointment = Appointment.create!(
+      practice_id: practices(:one).id,
+      patient: patients(:one),
+      provider: staffs(:admin),
+      scheduled_at: 1.day.from_now,
+      duration_minutes: 60
+    )
 
     assert_equal "scheduled", appointment.status
     assert appointment.scheduled?
@@ -63,9 +81,9 @@ class AppointmentTest < ActiveSupport::TestCase
 
   test "can create appointment with all required fields" do
     appointment = Appointment.new(
-      practice: practices(:one),
-      patient: patients(:one),
-      provider: staffs(:admin),
+      practice_id: practices(:one).id,
+      patient_id: patients(:one).id,
+      provider_id: staffs(:admin).id,
       scheduled_at: 1.day.from_now,
       duration_minutes: 45,
       notes: "Follow-up appointment"

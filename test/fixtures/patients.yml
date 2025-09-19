@@ -1,7 +1,8 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  practice: one
+  id: 1
+  practice_id: 1
   first_name: Alice
   last_name: Johnson
   date_of_birth: 1990-05-15
@@ -14,10 +15,11 @@ one:
   insurance_provider: HealthCorp
   insurance_policy_number: HC12345
   active: true
-  blood_type: O+
+  blood_type: o_positive
 
 two:
-  practice: two
+  id: 2
+  practice_id: 1
   first_name: Charlie
   last_name: Smith
   date_of_birth: 1985-08-22
@@ -30,4 +32,4 @@ two:
   insurance_provider: MediPlus
   insurance_policy_number: MP67890
   active: true
-  blood_type: AB+
+  blood_type: ab_positive

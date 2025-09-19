@@ -1,8 +1,8 @@
 class Appointment < ApplicationRecord
-  belongs_to :practice
-  belongs_to :patient
+  belongs_to :patient, dependent: :destroy
   belongs_to :provider, class_name: "Staff"
 
+  validates :practice_id, presence: true
   validates :scheduled_at, presence: true
   validates :duration_minutes, numericality: { only_integer: true, greater_than: 0 }
 
@@ -12,4 +12,9 @@ class Appointment < ApplicationRecord
     canceled: "canceled",
     no_show: "no_show"
   }
+
+  def practice
+    return nil unless practice_id
+    @practice ||= Practice.find_by(id: practice_id)
+  end
 end

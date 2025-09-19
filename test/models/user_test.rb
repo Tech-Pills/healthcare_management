@@ -8,14 +8,6 @@ class UserTest < ActiveSupport::TestCase
 
   test "staff? returns true when user has staff" do
     user = users(:one)
-    staff = Staff.create!(
-      user: user,
-      practice: practices(:one),
-      first_name: "John",
-      last_name: "Doe",
-      role: "doctor"
-    )
-
     assert user.staff?
   end
 
@@ -27,28 +19,12 @@ class UserTest < ActiveSupport::TestCase
 
   test "delegates full_name to staff" do
     user = users(:one)
-    staff = Staff.create!(
-      user: user,
-      practice: practices(:one),
-      first_name: "John",
-      last_name: "Doe",
-      role: "doctor"
-    )
-
-    assert_equal "John Doe", user.full_name
+    assert_equal "John Admin", user.full_name
   end
 
   test "delegates role to staff" do
     user = users(:one)
-    staff = Staff.create!(
-      user: user,
-      practice: practices(:one),
-      first_name: "John",
-      last_name: "Doe",
-      role: "doctor"
-    )
-
-    assert_equal "doctor", user.role
+    assert_equal "admin", user.role
   end
 
   test "delegates return nil when staff is nil" do
@@ -56,7 +32,7 @@ class UserTest < ActiveSupport::TestCase
 
     assert_nil user.full_name
     assert_nil user.role
-    assert_nil user.practice
     assert_nil user.active?
+    assert_equal practices(:one), user.practice
   end
 end

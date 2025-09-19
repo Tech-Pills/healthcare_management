@@ -1,17 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  address: MyString
-  phone: MyString
-  email: MyString@mail.com
-  license_number: MyString
+  id: 1
+  name: Test Medical Center
+  address: 123 Main Street
+  phone: 555-0001
+  email: contact@testmedical.com
+  license_number: LIC001
+  slug: test-medical-center
   active: true
 
 two:
-  name: MyString2
-  address: MyString2
-  phone: MyString2
-  email: MyString2@mail.com
-  license_number: MyString2
+  id: 2
+  name: Family Health Clinic
+  address: 456 Oak Avenue
+  phone: 555-0002
+  email: info@familyhealth.com
+  license_number: LIC002
+  slug: family-health-clinic
   active: true
