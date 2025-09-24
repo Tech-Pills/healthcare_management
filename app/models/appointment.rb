@@ -28,14 +28,14 @@ class Appointment < ApplicationRecord
 
     if scheduled_at > 24.hours.from_now
       AppointmentReminderJob
-      .set(wait_until: scheduled_at - 24.hours)
-      .perform_later(id, "24_hours")
+        .set(wait_until: scheduled_at - 24.hours)
+        .perform_later(id, "24_hours")
     end
 
     if scheduled_at > 2.hours.from_now
       AppointmentReminderJob
-      .set(wait_until: scheduled_at - 2.hours)
-      .perform_later(id, "2_hours")
+        .set(wait_until: scheduled_at - 2.hours)
+        .perform_later(id, "2_hours")
     end
   end
 end
