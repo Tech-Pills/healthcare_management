@@ -1,7 +1,7 @@
 Appointment Reminder
 ===============================================
 
-Dear <%= @appointment.patient.name %>,
+Dear <%= @appointment.patient.full_name %>,
 This is a reminder that you have an appointment scheduled on <%= @appointment.scheduled_at.strftime("%B %d, %Y at %I:%M %p") %>.
 This reminder is being sent <%= @reminder_period.humanize %> before your appointment.
 
