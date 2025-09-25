@@ -6,8 +6,7 @@ class Appointment < ApplicationRecord
   validates :scheduled_at, presence: true
   validates :duration_minutes, numericality: { only_integer: true, greater_than: 0 }
 
-  after_create :schedule_reminder_jobs
-  after_update :schedule_reminder_jobs, if: :scheduled_at_changed?
+  after_create :schedule_reminders
 
   enum :status, {
     scheduled: "scheduled",
@@ -23,19 +22,7 @@ class Appointment < ApplicationRecord
 
   private
 
-  def schedule_reminder_jobs
-    return unless scheduled_at.present?
-
-    if scheduled_at > 24.hours.from_now
-      AppointmentReminderJob
-        .set(wait_until: scheduled_at - 24.hours)
-        .perform_later(id, "24_hours")
-    end
-
-    if scheduled_at > 2.hours.from_now
-      AppointmentReminderJob
-        .set(wait_until: scheduled_at - 2.hours)
-        .perform_later(id, "2_hours")
-    end
+  def schedule_reminders
+    AppointmentReminderScheduler.new(self).schedule_reminders
   end
 end

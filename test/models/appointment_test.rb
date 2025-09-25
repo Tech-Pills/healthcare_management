@@ -1,6 +1,7 @@
 require "test_helper"
 
 class AppointmentTest < ActiveSupport::TestCase
+  include ActiveJob::TestHelper
   test "belongs to practice, patient, and provider" do
     appointment = Appointment.create!(
       practice_id: practices(:one).id,
@@ -91,5 +92,17 @@ class AppointmentTest < ActiveSupport::TestCase
 
     assert appointment.valid?
     assert appointment.save
+  end
+
+  test "schedules reminders via service on creation" do
+    assert_enqueued_jobs 2, only: AppointmentReminderJob do
+      Appointment.create!(
+        practice_id: practices(:one).id,
+        patient: patients(:one),
+        provider: staffs(:admin),
+        scheduled_at: 48.hours.from_now,
+        duration_minutes: 30
+      )
+    end
   end
 end
