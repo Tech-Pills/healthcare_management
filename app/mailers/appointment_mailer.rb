@@ -2,7 +2,7 @@ class AppointmentMailer < ApplicationMailer
   before_action :set_appointment_and_practice
   default from: -> { @practice&.email || "no-reply@example.com" }
 
-  def reminder_email(appointment, reminder_period)
+  def reminder_email(reminder_period)
     @reminder_period = reminder_period
     mail(
       to: @appointment.patient.email,
