@@ -1,0 +1,31 @@
+one:
+  id: 1
+  patient_id: 1
+  appointment_id: 1
+  recorded_at: 2025-09-07 14:00:00
+  weight: 70.5
+  height: 175.0
+  heart_rate: 72
+  temperature: 36.6
+  blood_pressure_systolic: 120
+  blood_pressure_diastolic: 80
+  diagnosis: "Routine check-up. All vitals normal."
+  medications: "None"
+  allergies: "None"
+  notes: "Patient is in good health."
+
+two:
+  id: 2
+  patient_id: 2
+  appointment_id: 2
+  recorded_at: 2025-09-07 15:00:00
+  weight: 85.0
+  height: 180.0
+  heart_rate: 78
+  temperature: 37.0
+  blood_pressure_systolic: 130
+  blood_pressure_diastolic: 85
+  diagnosis: "Mild hypertension. Advised lifestyle changes."
+  medications: "Lisinopril 10mg daily"
+  allergies: "Penicillin"
+  notes: "Follow-up in 3 months to monitor blood pressure."
