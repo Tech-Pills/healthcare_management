@@ -1,6 +1,6 @@
 class MedicalRecord < ApplicationRecord
   belongs_to :patient
-  belongs_to :appointment
+  belongs_to :appointment, optional: true
 
   validates :recorded_at, presence: true
   validates :weight, :height, numericality: { greater_than: 0 }, allow_blank: true
