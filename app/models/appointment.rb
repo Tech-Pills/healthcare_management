@@ -2,6 +2,8 @@ class Appointment < ApplicationRecord
   belongs_to :patient, dependent: :destroy
   belongs_to :provider, class_name: "Staff"
 
+  has_many :medical_records, dependent: :destroy
+
   validates :practice_id, presence: true
   validates :scheduled_at, presence: true
   validates :duration_minutes, numericality: { only_integer: true, greater_than: 0 }
