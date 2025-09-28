@@ -6,7 +6,7 @@ class AppointmentReminderJob < ApplicationJob
 
     AppointmentMailer
       .with(appointment: appointment)
-      .reminder_email(appointment, reminder_period)
+      .reminder_email(reminder_period)
       .deliver_now
   end
 end
