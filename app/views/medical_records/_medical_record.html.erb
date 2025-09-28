@@ -1,0 +1,80 @@
+<div id="<%= dom_id medical_record %>">
+  <div>
+    <strong>Patient:</strong>
+    <%= medical_record.patient&.full_name || "Unknown" %>
+  </div>
+
+  <div>
+    <strong>Appointment:</strong>
+    <%= medical_record.appointment_id %>
+  </div>
+
+  <div>
+    <strong>Recorded at:</strong>
+    <%= medical_record.recorded_at&.strftime("%B %d, %Y at %I:%M %p") %>
+  </div>
+
+  <% if medical_record.weight.present? %>
+    <div>
+      <strong>Weight:</strong>
+      <%= medical_record.weight %> kg
+    </div>
+  <% end %>
+
+  <% if medical_record.height.present? %>
+    <div>
+      <strong>Height:</strong>
+      <%= medical_record.height %> cm
+    </div>
+  <% end %>
+
+  <% if medical_record.heart_rate.present? %>
+    <div>
+      <strong>Heart Rate:</strong>
+      <%= medical_record.heart_rate %> bpm
+    </div>
+  <% end %>
+
+  <% if medical_record.temperature.present? %>
+    <div>
+      <strong>Temperature:</strong>
+      <%= medical_record.temperature %>°C
+    </div>
+  <% end %>
+
+  <% if medical_record.blood_pressure %>
+    <div>
+      <strong>Blood Pressure:</strong>
+      <%= medical_record.blood_pressure %> mmHg
+    </div>
+  <% end %>
+
+  <% if medical_record.diagnosis.present? %>
+    <div>
+      <strong>Diagnosis:</strong>
+      <%= simple_format medical_record.diagnosis %>
+    </div>
+  <% end %>
+
+  <% if medical_record.medications.present? %>
+    <div>
+      <strong>Medications:</strong>
+      <%= simple_format medical_record.medications %>
+    </div>
+  <% end %>
+
+  <% if medical_record.allergies.present? %>
+    <div>
+      <strong>Allergies:</strong>
+      <%= simple_format medical_record.allergies %>
+    </div>
+  <% end %>
+
+  <% if medical_record.notes.present? %>
+    <div>
+      <strong>Notes:</strong>
+      <%= simple_format medical_record.notes %>
+    </div>
+  <% end %>
+
+</div>
