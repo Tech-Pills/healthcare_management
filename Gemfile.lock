@@ -196,6 +196,8 @@ GEM
       net-smtp
     marcel (1.1.0)
     matrix (0.4.3)
+    mini_magick (5.3.1)
+      logger
     mini_mime (1.1.5)
     minitest (5.27.0)
     msgpack (1.8.0)
@@ -401,6 +403,7 @@ DEPENDENCIES
   bundler-audit
   capybara
   debug
+  image_processing (~> 1.2)
   importmap-rails
   jbuilder
   kamal
