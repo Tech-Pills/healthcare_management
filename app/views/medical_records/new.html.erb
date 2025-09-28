@@ -1,0 +1,11 @@
+<% content_for :title, "New medical record" %>
+
+<h1>New medical record</h1>
+
+<%= render "form", medical_record: @medical_record %>
+
+<br>
+
+<div>
+  <%= link_to "Back to medical records", medical_records_path %>
+</div>

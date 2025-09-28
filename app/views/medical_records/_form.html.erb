@@ -1,0 +1,82 @@
+<%= form_with(model: medical_record) do |form| %>
+  <% if medical_record.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(medical_record.errors.count, "error") %> prohibited this medical_record from being saved:</h2>
+
+      <ul>
+        <% medical_record.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :patient_id, style: "display: block" %>
+    <%= form.collection_select :patient_id, Patient.all, :id, :full_name, { prompt: "Select Patient" } %>
+  </div>
+
+  <div>
+    <%= form.label :appointment_id, style: "display: block" %>
+    <%= form.collection_select :appointment_id, Appointment.all, :id, :id, { prompt: "Select Appointment" } %>
+  </div>
+
+  <div>
+    <%= form.label :recorded_at, style: "display: block" %>
+    <%= form.datetime_local_field :recorded_at %>
+  </div>
+
+  <div>
+    <%= form.label :weight, "Weight (kg)", style: "display: block" %>
+    <%= form.number_field :weight, step: 0.1, min: 0 %>
+  </div>
+
+  <div>
+    <%= form.label :height, "Height (cm)", style: "display: block" %>
+    <%= form.number_field :height, step: 0.1, min: 0 %>
+  </div>
+
+  <div>
+    <%= form.label :heart_rate, "Heart Rate (bpm)", style: "display: block" %>
+    <%= form.number_field :heart_rate, min: 0, max: 300 %>
+  </div>
+
+  <div>
+    <%= form.label :temperature, "Temperature (°C)", style: "display: block" %>
+    <%= form.number_field :temperature, step: 0.1, min: 30, max: 50 %>
+  </div>
+
+  <div>
+    <%= form.label :blood_pressure_systolic, "Blood Pressure Systolic", style: "display: block" %>
+    <%= form.number_field :blood_pressure_systolic, min: 0, max: 300 %>
+  </div>
+
+  <div>
+    <%= form.label :blood_pressure_diastolic, "Blood Pressure Diastolic", style: "display: block" %>
+    <%= form.number_field :blood_pressure_diastolic, min: 0, max: 300 %>
+  </div>
+
+  <div>
+    <%= form.label :diagnosis, style: "display: block" %>
+    <%= form.text_area :diagnosis, rows: 3 %>
+  </div>
+
+  <div>
+    <%= form.label :medications, style: "display: block" %>
+    <%= form.text_area :medications, rows: 3 %>
+  </div>
+
+  <div>
+    <%= form.label :allergies, style: "display: block" %>
+    <%= form.text_area :allergies, rows: 2 %>
+  </div>
+
+  <div>
+    <%= form.label :notes, style: "display: block" %>
+    <%= form.text_area :notes, rows: 4 %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
