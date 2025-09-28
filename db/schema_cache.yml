@@ -50,7 +50,7 @@ columns:
     default_function:
     collation:
     comment:
-  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &12 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: notes
     cast_type: &9 !ruby/object:ActiveRecord::Type::Text
@@ -70,7 +70,7 @@ columns:
     default_function:
     collation:
     comment:
-  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &13 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: patient_id
     cast_type: *1
@@ -80,7 +80,7 @@ columns:
     default_function:
     collation:
     comment:
-  - &12 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &16 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: practice_id
     cast_type: *1
@@ -163,8 +163,140 @@ columns:
     default_function:
     collation:
     comment:
+  medical_records:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: allergies
+    cast_type: *9
+    sql_type_metadata: *10
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: appointment_id
+    cast_type: *1
+    sql_type_metadata: *2
+    'null': false
+    default:
+    default_function:
+    collation:
+    comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: blood_pressure_diastolic
+    cast_type: *1
+    sql_type_metadata: *2
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: blood_pressure_systolic
+    cast_type: *1
+    sql_type_metadata: *2
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
+  - *5
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: diagnosis
+    cast_type: *9
+    sql_type_metadata: *10
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: heart_rate
+    cast_type: *1
+    sql_type_metadata: *2
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: height
+    cast_type: &14 !ruby/object:ActiveModel::Type::Decimal
+      precision: 5
+      scale: 2
+      limit:
+    sql_type_metadata: &15 !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: decimal(5,2)
+      type: :decimal
+      limit:
+      precision: 5
+      scale: 2
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
+  - *11
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: medications
+    cast_type: *9
+    sql_type_metadata: *10
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
+  - *12
+  - *13
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: recorded_at
+    cast_type: *3
+    sql_type_metadata: *4
+    'null': false
+    default:
+    default_function:
+    collation:
+    comment:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: temperature
+    cast_type: !ruby/object:ActiveModel::Type::Decimal
+      precision: 4
+      scale: 2
+      limit:
+    sql_type_metadata: !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+      sql_type: decimal(4,2)
+      type: :decimal
+      limit:
+      precision: 4
+      scale: 2
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
+  - *8
+  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+    auto_increment:
+    name: weight
+    cast_type: *14
+    sql_type_metadata: *15
+    'null': true
+    default:
+    default_function:
+    collation:
+    comment:
   patients:
-  - &13 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &17 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: active
     cast_type: !ruby/object:ActiveModel::Type::Boolean
@@ -222,7 +354,7 @@ columns:
     default_function:
     collation:
     comment:
-  - &14 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &18 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: email
     cast_type: *6
@@ -252,7 +384,7 @@ columns:
     default_function:
     collation:
     comment:
-  - &15 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &19 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: first_name
     cast_type: *6
@@ -293,7 +425,7 @@ columns:
     default_function:
     collation:
     comment:
-  - &16 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &20 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: last_name
     cast_type: *6
@@ -313,10 +445,10 @@ columns:
     default_function:
     collation:
     comment:
-  - *12
+  - *16
   - *8
   practices:
-  - *13
+  - *17
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: address
@@ -328,9 +460,9 @@ columns:
     collation:
     comment:
   - *5
-  - *14
+  - *18
   - *11
-  - &17 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &21 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: license_number
     cast_type: *6
@@ -416,7 +548,7 @@ columns:
     default_function:
     collation:
     comment:
-  - &18 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &22 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: user_id
     cast_type: *1
@@ -427,13 +559,13 @@ columns:
     collation:
     comment:
   staffs:
-  - *13
-  - *5
-  - *15
-  - *11
-  - *16
   - *17
-  - *12
+  - *5
+  - *19
+  - *11
+  - *20
+  - *21
+  - *16
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: role
@@ -445,7 +577,7 @@ columns:
     collation:
     comment:
   - *8
-  - *18
+  - *22
   users:
   - *5
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
@@ -473,6 +605,7 @@ columns:
 primary_keys:
   appointments: id
   ar_internal_metadata: key
+  medical_records: id
   patients: id
   practices: id
   schema_migrations: version
@@ -482,6 +615,7 @@ primary_keys:
 data_sources:
   appointments: true
   ar_internal_metadata: true
+  medical_records: true
   patients: true
   practices: true
   schema_migrations: true
@@ -539,6 +673,39 @@ indexes:
     comment:
     valid: true
   ar_internal_metadata: []
+  medical_records:
+  - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
+    table: medical_records
+    name: index_medical_records_on_appointment_id
+    unique: false
+    columns:
+    - appointment_id
+    lengths: {}
+    orders: {}
+    opclasses: {}
+    where:
+    type:
+    using:
+    include:
+    nulls_not_distinct:
+    comment:
+    valid: true
+  - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
+    table: medical_records
+    name: index_medical_records_on_patient_id
+    unique: false
+    columns:
+    - patient_id
+    lengths: {}
+    orders: {}
+    opclasses: {}
+    where:
+    type:
+    using:
+    include:
+    nulls_not_distinct:
+    comment:
+    valid: true
   patients:
   - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
     table: patients
@@ -641,4 +808,4 @@ indexes:
     nulls_not_distinct:
     comment:
     valid: true
-version: 20250916231940
+version: 20250925221509

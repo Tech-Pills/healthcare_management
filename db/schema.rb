@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_09_16_231940) do
+ActiveRecord::Schema[8.1].define(version: 2025_09_25_221509) do
   create_table "appointments", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "duration_minutes", default: 30
@@ -24,6 +24,26 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_16_231940) do
     t.index ["patient_id"], name: "index_appointments_on_patient_id"
     t.index ["practice_id"], name: "index_appointments_on_practice_id"
     t.index ["provider_id"], name: "index_appointments_on_provider_id"
+  end
+
+  create_table "medical_records", force: :cascade do |t|
+    t.text "allergies"
+    t.integer "appointment_id", null: false
+    t.integer "blood_pressure_diastolic"
+    t.integer "blood_pressure_systolic"
+    t.datetime "created_at", null: false
+    t.text "diagnosis"
+    t.integer "heart_rate"
+    t.decimal "height", precision: 5, scale: 2
+    t.text "medications"
+    t.text "notes"
+    t.integer "patient_id", null: false
+    t.datetime "recorded_at", null: false
+    t.decimal "temperature", precision: 4, scale: 2
+    t.datetime "updated_at", null: false
+    t.decimal "weight", precision: 5, scale: 2
+    t.index ["appointment_id"], name: "index_medical_records_on_appointment_id"
+    t.index ["patient_id"], name: "index_medical_records_on_patient_id"
   end
 
   create_table "patients", force: :cascade do |t|
@@ -92,4 +112,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_16_231940) do
   end
 
   add_foreign_key "appointments", "patients", on_delete: :cascade
+  add_foreign_key "medical_records", "appointments"
+  add_foreign_key "medical_records", "patients"
 end
