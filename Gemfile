@@ -66,4 +66,4 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "activerecord-tenanted", "~> 0.3.0"
+gem "activerecord-tenanted", "~> 0.6.0"
