@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
-# Use specific branch of Rails
-gem "rails", github: "rails/rails", branch: "main"
+# Use specific branch of Rails (pinned to 8.1.0.beta1 for activerecord-tenanted compatibility)
+gem "rails", github: "rails/rails", ref: "b555f4e1ef862400ade23d1dfbbfda149d3a7f7d"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use sqlite3 as the database for Active Record
