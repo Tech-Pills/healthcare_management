@@ -67,3 +67,4 @@ group :test do
 end
 
 gem "activerecord-tenanted", "~> 0.6.0"
+gem "minitest", "~> 5.26"
