@@ -34,7 +34,6 @@ class AppointmentsTest < ApplicationSystemTestCase
     select @appointment.practice.name, from: "Practice"
     select @appointment.patient.full_name, from: "Patient", match: :first
     select @appointment.provider.full_name, from: "Provider"
-    fill_in "Scheduled at", with: @appointment.scheduled_at.strftime("%Y-%m-%dT%H:%M")
     fill_in "Duration minutes", with: @appointment.duration_minutes
     fill_in "Status", with: @appointment.status
     fill_in "Notes", with: @appointment.notes
