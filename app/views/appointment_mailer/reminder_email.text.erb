@@ -5,6 +5,8 @@ Dear <%= @appointment.patient.full_name %>,
 This is a reminder that you have an appointment scheduled on <%= @appointment.scheduled_at.strftime("%B %d, %Y at %I:%M %p") %>.
 This reminder is being sent <%= @reminder_period.gsub('_', ' ') %> before your appointment.
 
+View appointment details: <%= appointment_url(@appointment) %>
+
 Please make sure to arrive on time.
 Best regards,
 <%= @practice.name %>
