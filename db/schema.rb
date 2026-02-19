@@ -56,7 +56,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_28_170733) do
 
   create_table "medical_records", force: :cascade do |t|
     t.text "allergies"
-    t.integer "appointment_id", null: false
+    t.integer "appointment_id"
     t.integer "blood_pressure_diastolic"
     t.integer "blood_pressure_systolic"
     t.datetime "created_at", null: false

@@ -309,7 +309,7 @@ columns:
     name: appointment_id
     cast_type: *8
     sql_type_metadata: *9
-    'null': false
+    'null': true
     default:
     default_function:
     collation:
