@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :medical_records
   resources :appointments
   resources :patients
   resources :staffs
@@ -17,4 +18,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "appointments#index"
+
+  mount MissionControl::Jobs::Engine, at: "/jobs"
 end

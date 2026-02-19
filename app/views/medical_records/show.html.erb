@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @medical_record %>
+
+<div>
+  <%= link_to "Edit this medical record", edit_medical_record_path(@medical_record) %> |
+  <%= link_to "Back to medical records", medical_records_path %>
+
+  <%= button_to "Destroy this medical record", @medical_record, method: :delete %>
+</div>

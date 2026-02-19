@@ -1,0 +1,11 @@
+<h1>Appointment Reminder</h1>
+
+<p>Dear <%= @appointment.patient.full_name %>,</p>
+<p>This is a reminder that you have an appointment scheduled on <%= @appointment.scheduled_at.strftime("%B %d, %Y at %I:%M %p") %>.</p>
+<p>This reminder is being sent <%= @reminder_period.humanize %> before your appointment.</p>
+
+<p><%= link_to "View Appointment Details", appointment_url(@appointment) %></p>
+
+<p>Please make sure to arrive on time.</p>
+<p>Best regards,</p>
+<p><%= @practice.name %></p>
