@@ -1,0 +1,14 @@
+Lab Result #2
+Patient Urinalysis Results
+Date: 2024-01-16
+
+Appearance: Clear
+Color: Yellow
+pH: 6.5
+Specific Gravity: 1.015
+Protein: Negative
+Glucose: Negative
+Ketones: Negative
+Blood: Negative
+
+Results are normal. No abnormalities detected.

@@ -77,4 +77,43 @@
     </div>
   <% end %>
 
+  <hr style="margin: 20px 0; border: 1px solid #ccc;">
+
+  <h3>Medical Files</h3>
+
+  <% if medical_record.x_ray_image.attached? %>
+    <div style="margin: 15px 0;">
+      <strong>X-ray Image:</strong>
+      <div style="margin-top: 10px;">
+        <%= image_tag medical_record.x_ray_image.variant(resize_to_limit: [ 600, 600 ]), style: "border: 2px solid #ddd; border-radius: 4px;" %>
+      </div>
+      <p style="margin-top: 10px; color: #666;">
+        <%= medical_record.x_ray_image.filename %>
+        (<%= number_to_human_size(medical_record.x_ray_image.byte_size) %>)
+        -
+        <%= link_to "Download Full Size", rails_blob_path(medical_record.x_ray_image, disposition: "attachment") %>
+      </p>
+    </div>
+  <% else %>
+    <p style="color: #999;">No X-ray image attached</p>
+  <% end %>
+
+  <% if medical_record.lab_results.attached? %>
+    <div style="margin: 15px 0;">
+      <strong>Lab Results:</strong>
+      <ul style="margin-top: 10px; padding-left: 20px;">
+        <% medical_record.lab_results.each do |lab_result| %>
+          <li>
+            <%= link_to lab_result.filename, rails_blob_path(lab_result, disposition: "inline"), target: "_blank" %>
+            (<%= number_to_human_size(lab_result.byte_size) %>)
+            -
+            <%= link_to "Download", rails_blob_path(lab_result, disposition: "attachment") %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% else %>
+    <p style="color: #999;">No lab results attached</p>
+  <% end %>
+
 </div>

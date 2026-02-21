@@ -4,13 +4,46 @@
 
 <h1>Medical records</h1>
 
-<div id="medical_records">
-  <% @medical_records.each do |medical_record| %>
-    <%= render medical_record %>
-    <p>
-      <%= link_to "Show this medical record", medical_record %>
-    </p>
-  <% end %>
-</div>
+<table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+  <thead>
+    <tr style="background-color: #f5f5f5; border-bottom: 2px solid #ddd;">
+      <th style="padding: 12px; text-align: left;">Patient</th>
+      <th style="padding: 12px; text-align: left;">Recorded At</th>
+      <th style="padding: 12px; text-align: left;">Diagnosis</th>
+      <th style="padding: 12px; text-align: center;">X-ray</th>
+      <th style="padding: 12px; text-align: center;">Lab Results</th>
+      <th style="padding: 12px; text-align: center;">Actions</th>
+    </tr>
+  </thead>
+  <tbody id="medical_records">
+    <% @medical_records.each do |medical_record| %>
+      <tr style="border-bottom: 1px solid #eee;">
+        <td style="padding: 12px;"><%= medical_record.patient&.full_name || "Unknown" %></td>
+        <td style="padding: 12px;"><%= medical_record.recorded_at&.strftime("%b %d, %Y") %></td>
+        <td style="padding: 12px;"><%= truncate(medical_record.diagnosis, length: 50) %></td>
+        <td style="padding: 12px; text-align: center;">
+          <% if medical_record.x_ray_image.attached? %>
+            <span style="color: green; font-size: 20px;" title="X-ray attached">✓</span>
+          <% else %>
+            <span style="color: #ccc;">-</span>
+          <% end %>
+        </td>
+        <td style="padding: 12px; text-align: center;">
+          <% if medical_record.lab_results.attached? %>
+            <span style="color: green;" title="<%= medical_record.lab_results.count %> lab results">
+              ✓ (<%= medical_record.lab_results.count %>)
+            </span>
+          <% else %>
+            <span style="color: #ccc;">-</span>
+          <% end %>
+        </td>
+        <td style="padding: 12px; text-align: center;">
+          <%= link_to "View", medical_record, style: "margin-right: 10px;" %>
+          <%= link_to "Edit", edit_medical_record_path(medical_record) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<%= link_to "New medical record", new_medical_record_path %>
+<%= link_to "New medical record", new_medical_record_path, style: "display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px;" %>

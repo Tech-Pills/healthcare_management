@@ -155,6 +155,7 @@ practices.each do |practice|
     patient_ids = Patient.limit(2).pluck(:id)
     staff_member = Staff.first
 
+    appointments = []
     if staff_member && patient_ids.any?
       patient_ids.each_with_index do |patient_id, index|
         appointment = Appointment.find_or_create_by!(
@@ -167,10 +168,87 @@ practices.each do |practice|
           apt.notes = "Initial consultation"
           apt.status = "scheduled"
         end
+        appointments << appointment
         puts "    Created appointment: #{appointment.scheduled_at.strftime('%Y-%m-%d %H:%M')} with Dr. #{staff_member.full_name}"
       end
     else
       puts "    No staff or patients found to create appointments"
+    end
+
+    # Create medical records with Active Storage attachments
+    puts "  Creating sample medical records with attachments for #{practice.name}..."
+    patients = Patient.limit(2)
+
+    patients.each_with_index do |patient, index|
+      appointment = appointments[index]
+      next unless appointment
+
+      # Create medical record with vitals
+      medical_record = MedicalRecord.find_or_create_by!(
+        patient: patient,
+        appointment: appointment
+      ) do |mr|
+        mr.recorded_at = appointment.scheduled_at - 1.day
+        mr.weight = 70.0 + rand(-10..10)
+        mr.height = 170.0 + rand(-10..10)
+        mr.heart_rate = 70 + rand(-10..10)
+        mr.temperature = 36.5 + rand(-0.5..0.5).round(1)
+        mr.blood_pressure_systolic = 120 + rand(-10..10)
+        mr.blood_pressure_diastolic = 80 + rand(-5..5)
+        mr.diagnosis = [
+          "Annual physical examination - all vitals normal",
+          "Routine checkup - patient reports feeling well",
+          "Follow-up visit - condition improving"
+        ].sample
+        mr.medications = [
+          "Vitamin D supplement - 1000 IU daily",
+          "Multivitamin - once daily with breakfast",
+          "None currently prescribed"
+        ].sample
+        mr.allergies = [
+          "No known allergies",
+          "Penicillin - mild rash",
+          "Pollen - seasonal"
+        ].sample
+        mr.notes = "Patient cooperative and in good spirits. Follow-up recommended in 6 months."
+      end
+
+      # Attach X-ray image for first patient
+      if index == 0 && !medical_record.x_ray_image.attached?
+        xray_path = Rails.root.join("db", "seed_files", "sample_xray.png")
+        if File.exist?(xray_path)
+          medical_record.x_ray_image.attach(
+            io: File.open(xray_path),
+            filename: "xray_#{patient.last_name.downcase}_#{Date.current.strftime('%Y%m%d')}.png",
+            content_type: "image/png"
+          )
+          puts "    ✓ Attached X-ray image to medical record for #{patient.full_name}"
+        end
+      end
+
+      # Attach lab results for second patient
+      if index == 1 && medical_record.lab_results.count == 0
+        lab1_path = Rails.root.join("db", "seed_files", "sample_lab_result_1.pdf")
+        lab2_path = Rails.root.join("db", "seed_files", "sample_lab_result_2.pdf")
+
+        if File.exist?(lab1_path) && File.exist?(lab2_path)
+          medical_record.lab_results.attach([
+            {
+              io: File.open(lab1_path),
+              filename: "bloodwork_#{patient.last_name.downcase}_#{Date.current.strftime('%Y%m%d')}.pdf",
+              content_type: "application/pdf"
+            },
+            {
+              io: File.open(lab2_path),
+              filename: "urinalysis_#{patient.last_name.downcase}_#{Date.current.strftime('%Y%m%d')}.pdf",
+              content_type: "application/pdf"
+            }
+          ])
+          puts "    ✓ Attached #{medical_record.lab_results.count} lab results to medical record for #{patient.full_name}"
+        end
+      end
+
+      puts "    Created medical record for #{patient.full_name} (#{medical_record.diagnosis[0..50]}...)"
     end
   end
 end
@@ -202,3 +280,8 @@ puts "  User.all            # Users in current tenant"
 puts "  Staff.all           # Staff in current tenant"
 puts "  Patient.all         # Patients in current tenant"
 puts "  Appointment.all     # Appointments in current tenant"
+puts "  MedicalRecord.all   # Medical records in current tenant"
+puts ""
+puts "  # View Active Storage attachments:"
+puts "  MedicalRecord.first.x_ray_image.attached?     # Check if x-ray attached"
+puts "  MedicalRecord.last.lab_results.count          # Count lab results"

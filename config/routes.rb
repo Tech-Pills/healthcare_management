@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :medical_records
+  resources :medical_records do
+    member do
+      delete :purge_attachment
+    end
+  end
   resources :appointments
   resources :patients
   resources :staffs
