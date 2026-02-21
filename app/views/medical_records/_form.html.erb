@@ -76,7 +76,48 @@
     <%= form.text_area :notes, rows: 4 %>
   </div>
 
+  <hr style="margin: 20px 0; border: 1px solid #ccc;">
+
+  <h3>Medical Files</h3>
+
   <div>
+    <%= form.label :x_ray_image, "X-ray Image", style: "display: block" %>
+    <% if medical_record.persisted? && medical_record.x_ray_image.attached? %>
+      <div style="margin: 10px 0; padding: 10px; background: #f0f0f0; border-radius: 4px;">
+        <strong>Current:</strong> <%= medical_record.x_ray_image.filename %>
+        (<%= number_to_human_size(medical_record.x_ray_image.byte_size) %>)
+        <%= link_to "Remove", purge_attachment_medical_record_path(medical_record, attachment: "x_ray_image"),
+                    data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                    style: "color: red; margin-left: 10px;" %>
+      </div>
+    <% end %>
+    <%= form.file_field :x_ray_image, accept: "image/*" %>
+    <small style="display: block; color: #666;">Upload a new X-ray image (JPG, PNG, etc.)</small>
+  </div>
+
+  <div>
+    <%= form.label :lab_results, "Lab Results (PDFs)", style: "display: block; margin-top: 15px;" %>
+    <% if medical_record.persisted? && medical_record.lab_results.attached? %>
+      <div style="margin: 10px 0;">
+        <strong>Current files:</strong>
+        <ul style="margin: 5px 0; padding-left: 20px;">
+          <% medical_record.lab_results.each do |lab_result| %>
+            <li>
+              <%= lab_result.filename %>
+              (<%= number_to_human_size(lab_result.byte_size) %>)
+              <%= link_to "Remove", purge_attachment_medical_record_path(medical_record, attachment: "lab_result", blob_id: lab_result.blob.id),
+                          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                          style: "color: red; margin-left: 5px;" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= form.file_field :lab_results, multiple: true, accept: "application/pdf" %>
+    <small style="display: block; color: #666;">Upload lab results (multiple PDF files allowed)</small>
+  </div>
+
+  <div style="margin-top: 20px;">
     <%= form.submit %>
   </div>
 <% end %>
