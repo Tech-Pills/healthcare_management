@@ -13,10 +13,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
+      - name: Setup Rails environment
+        uses: ./.github/actions/setup-rails
 
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
@@ -31,10 +29,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
+      - name: Setup Rails environment
+        uses: ./.github/actions/setup-rails
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
@@ -47,10 +43,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
+      - name: Setup Rails environment
+        uses: ./.github/actions/setup-rails
 
       - name: Prepare RuboCop cache
         uses: actions/cache@v4
@@ -78,13 +72,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Install ImageMagick
-        run: sudo apt-get update && sudo apt-get install -y imagemagick
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Setup Rails environment
+        uses: ./.github/actions/setup-rails
         with:
-          bundler-cache: true
+          install-imagemagick: 'true'
 
       - name: Run tests
         env:
@@ -106,13 +97,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Install ImageMagick
-        run: sudo apt-get update && sudo apt-get install -y imagemagick
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Setup Rails environment
+        uses: ./.github/actions/setup-rails
         with:
-          bundler-cache: true
+          install-imagemagick: 'true'
 
       - name: Run System Tests
         env:

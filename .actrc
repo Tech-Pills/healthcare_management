@@ -1,0 +1,11 @@
+# Use medium image for better compatibility
+-P ubuntu-latest=catthehacker/ubuntu:act-latest
+
+# Use platform-specific architecture
+--container-architecture linux/amd64
+
+# Reuse containers for faster runs
+--reuse
+
+# Verbose output
+--verbose
