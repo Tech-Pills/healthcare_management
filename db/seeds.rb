@@ -217,12 +217,17 @@ practices.each do |practice|
       if index == 0 && !medical_record.x_ray_image.attached?
         xray_path = Rails.root.join("db", "seed_files", "sample_xray.png")
         if File.exist?(xray_path)
-          medical_record.x_ray_image.attach(
-            io: File.open(xray_path),
-            filename: "xray_#{patient.last_name.downcase}_#{Date.current.strftime('%Y%m%d')}.png",
-            content_type: "image/png"
-          )
-          puts "    ✓ Attached X-ray image to medical record for #{patient.full_name}"
+          file = File.open(xray_path)
+          begin
+            medical_record.x_ray_image.attach(
+              io: file,
+              filename: "xray_#{patient.last_name.downcase}_#{Date.current.strftime('%Y%m%d')}.png",
+              content_type: "image/png"
+            )
+            puts "    ✓ Attached X-ray image to medical record for #{patient.full_name}"
+          ensure
+            file.close
+          end
         end
       end
 
@@ -232,19 +237,26 @@ practices.each do |practice|
         lab2_path = Rails.root.join("db", "seed_files", "sample_lab_result_2.pdf")
 
         if File.exist?(lab1_path) && File.exist?(lab2_path)
-          medical_record.lab_results.attach([
-            {
-              io: File.open(lab1_path),
-              filename: "bloodwork_#{patient.last_name.downcase}_#{Date.current.strftime('%Y%m%d')}.pdf",
-              content_type: "application/pdf"
-            },
-            {
-              io: File.open(lab2_path),
-              filename: "urinalysis_#{patient.last_name.downcase}_#{Date.current.strftime('%Y%m%d')}.pdf",
-              content_type: "application/pdf"
-            }
-          ])
-          puts "    ✓ Attached #{medical_record.lab_results.count} lab results to medical record for #{patient.full_name}"
+          lab1_file = File.open(lab1_path)
+          lab2_file = File.open(lab2_path)
+          begin
+            medical_record.lab_results.attach([
+              {
+                io: lab1_file,
+                filename: "bloodwork_#{patient.last_name.downcase}_#{Date.current.strftime('%Y%m%d')}.pdf",
+                content_type: "application/pdf"
+              },
+              {
+                io: lab2_file,
+                filename: "urinalysis_#{patient.last_name.downcase}_#{Date.current.strftime('%Y%m%d')}.pdf",
+                content_type: "application/pdf"
+              }
+            ])
+            puts "    ✓ Attached #{medical_record.lab_results.count} lab results to medical record for #{patient.full_name}"
+          ensure
+            lab1_file.close
+            lab2_file.close
+          end
         end
       end
 
