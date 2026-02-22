@@ -1,0 +1,19 @@
+name: 'Setup Rails Environment'
+description: 'Setup Ruby with Bundler cache and optionally install ImageMagick'
+inputs:
+  install-imagemagick:
+    description: 'Whether to install ImageMagick for Active Storage'
+    required: false
+    default: 'false'
+runs:
+  using: 'composite'
+  steps:
+    - name: Install ImageMagick
+      if: inputs.install-imagemagick == 'true'
+      shell: bash
+      run: sudo apt-get update && sudo apt-get install -y imagemagick
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true

@@ -130,4 +130,18 @@ class MedicalRecordTest < ActiveSupport::TestCase
     assert medical_record.valid?
     assert medical_record.save
   end
+
+  test "has one attached x_ray_image" do
+    medical_record = medical_records(:one)
+
+    assert_respond_to medical_record, :x_ray_image
+    assert medical_record.x_ray_image.is_a?(ActiveStorage::Attached::One)
+  end
+
+  test "has many attached lab_results" do
+    medical_record = medical_records(:one)
+
+    assert_respond_to medical_record, :lab_results
+    assert medical_record.lab_results.is_a?(ActiveStorage::Attached::Many)
+  end
 end
