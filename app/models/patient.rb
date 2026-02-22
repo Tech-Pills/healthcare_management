@@ -1,4 +1,6 @@
 class Patient < ApplicationRecord
+  belongs_to :practice, optional: true
+
   has_many :appointments, dependent: :destroy
   has_many :medical_records, dependent: :destroy
 
@@ -25,10 +27,5 @@ class Patient < ApplicationRecord
 
   def full_name
     [ first_name, last_name ].compact.join(" ")
-  end
-
-  def practice
-    return nil unless practice_id
-    @practice ||= Practice.find_by(id: practice_id)
   end
 end
