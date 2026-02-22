@@ -104,7 +104,7 @@
       <ul style="margin-top: 10px; padding-left: 20px;">
         <% medical_record.lab_results.each do |lab_result| %>
           <li>
-            <%= link_to lab_result.filename, rails_blob_path(lab_result, disposition: "inline"), target: "_blank" %>
+            <%= link_to lab_result.filename, rails_blob_path(lab_result, disposition: "inline"), target: "_blank", rel: "noopener noreferrer" %>
             (<%= number_to_human_size(lab_result.byte_size) %>)
             -
             <%= link_to "Download", rails_blob_path(lab_result, disposition: "attachment") %>
