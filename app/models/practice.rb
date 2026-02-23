@@ -13,7 +13,7 @@ class Practice < GlobalRecord
   has_many :staffs, class_name: "Staff", foreign_key: :practice_id
   has_many :patients, class_name: "Patient", foreign_key: :practice_id
   has_many :appointments, class_name: "Appointment", foreign_key: :practice_id
-  has_many :users, through: :staffs, disable_joins: true
+  has_many :users, through: :staffs
 
   private
 
