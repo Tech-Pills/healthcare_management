@@ -105,4 +105,114 @@ class AppointmentTest < ActiveSupport::TestCase
       )
     end
   end
+
+  test "belongs_to practice association" do
+    appointment = appointments(:one)
+
+    assert_respond_to appointment, :practice
+    assert_instance_of Practice, appointment.practice
+  end
+
+  test "practice association returns correct record" do
+    appointment = appointments(:one)
+    practice = appointment.practice
+
+    assert_equal practices(:one).id, practice.id
+    assert_equal "Test Medical Center", practice.name
+    assert_equal appointment.practice_id, practice.id
+  end
+
+  test "practice association queries across databases" do
+    appointment = appointments(:one)
+
+    assert_equal "primary_test-medical-center", Appointment.connection_db_config.name
+    assert_includes Appointment.connection_db_config.database, "test/test-medical-center"
+
+    assert_equal "global", Practice.connection_db_config.name
+    assert_includes Practice.connection_db_config.database, "test_global"
+
+    practice = appointment.practice
+    assert_not_nil practice
+    assert_instance_of Practice, practice
+  end
+
+  test "belongs_to patient association" do
+    appointment = appointments(:one)
+
+    assert_respond_to appointment, :patient
+    assert_instance_of Patient, appointment.patient
+  end
+
+  test "patient association queries same tenant database" do
+    appointment = appointments(:one)
+
+    assert_equal "primary_test-medical-center", Appointment.connection_db_config.name
+    assert_equal "primary_test-medical-center", Patient.connection_db_config.name
+
+    patient = appointment.patient
+    assert_not_nil patient
+    assert_instance_of Patient, patient
+  end
+
+  test "belongs_to provider association" do
+    appointment = appointments(:one)
+
+    assert_respond_to appointment, :provider
+    assert_instance_of Staff, appointment.provider
+  end
+
+  test "provider association queries same tenant database" do
+    appointment = appointments(:one)
+
+    assert_equal "primary_test-medical-center", Appointment.connection_db_config.name
+    assert_equal "primary_test-medical-center", Staff.connection_db_config.name
+
+    provider = appointment.provider
+    assert_not_nil provider
+    assert_instance_of Staff, provider
+  end
+
+  test "has_many medical_records association" do
+    appointment = appointments(:one)
+
+    assert_respond_to appointment, :medical_records
+    assert appointment.medical_records.is_a?(ActiveRecord::Associations::CollectionProxy)
+  end
+
+  test "validates presence of practice_id" do
+    appointment = Appointment.new(
+      patient_id: patients(:one).id,
+      provider_id: staffs(:admin).id,
+      scheduled_at: 1.day.from_now,
+      duration_minutes: 30
+    )
+
+    assert_not appointment.valid?
+    assert_includes appointment.errors[:practice_id], "can't be blank"
+  end
+
+  test "valid with practice_id" do
+    appointment = Appointment.new(
+      practice_id: practices(:one).id,
+      patient_id: patients(:one).id,
+      provider_id: staffs(:admin).id,
+      scheduled_at: 1.day.from_now,
+      duration_minutes: 30
+    )
+
+    assert appointment.valid?
+  end
+
+  test "optional: true allows association without existence check" do
+    appointment = Appointment.new(
+      practice_id: practices(:one).id,
+      patient_id: patients(:one).id,
+      provider_id: staffs(:admin).id,
+      scheduled_at: 1.day.from_now,
+      duration_minutes: 30
+    )
+
+    assert appointment.valid?
+    assert_not_nil appointment.practice
+  end
 end

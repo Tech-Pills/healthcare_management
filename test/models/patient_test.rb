@@ -117,4 +117,88 @@ class PatientTest < ActiveSupport::TestCase
       assert_includes actual_keys, key
     end
   end
+
+  test "belongs_to practice association" do
+    patient = patients(:one)
+
+    assert_respond_to patient, :practice
+    assert_instance_of Practice, patient.practice
+  end
+
+  test "practice association returns correct record" do
+    patient = patients(:one)
+    practice = patient.practice
+
+    assert_equal practices(:one).id, practice.id
+    assert_equal "Test Medical Center", practice.name
+    assert_equal patient.practice_id, practice.id
+  end
+
+  test "practice association queries across databases" do
+    patient = patients(:one)
+
+    assert_equal "primary_test-medical-center", Patient.connection_db_config.name
+    assert_includes Patient.connection_db_config.database, "test/test-medical-center"
+
+    assert_equal "global", Practice.connection_db_config.name
+    assert_includes Practice.connection_db_config.database, "test_global"
+
+    practice = patient.practice
+    assert_not_nil practice
+    assert_instance_of Practice, practice
+  end
+
+  test "has_many appointments association" do
+    patient = patients(:one)
+
+    assert_respond_to patient, :appointments
+    assert patient.appointments.is_a?(ActiveRecord::Associations::CollectionProxy)
+  end
+
+  test "has_many medical_records association" do
+    patient = patients(:one)
+
+    assert_respond_to patient, :medical_records
+    assert patient.medical_records.is_a?(ActiveRecord::Associations::CollectionProxy)
+  end
+
+  test "validates presence of practice_id" do
+    patient = Patient.new(
+      first_name: "Test",
+      last_name: "Patient",
+      date_of_birth: 30.years.ago,
+      phone: "555-1234",
+      email: "test@example.com"
+    )
+
+    assert_not patient.valid?
+    assert_includes patient.errors[:practice_id], "can't be blank"
+  end
+
+  test "valid with practice_id" do
+    patient = Patient.new(
+      practice_id: practices(:one).id,
+      first_name: "Valid",
+      last_name: "Patient",
+      date_of_birth: 25.years.ago,
+      phone: "555-9999",
+      email: "valid@example.com"
+    )
+
+    assert patient.valid?
+  end
+
+  test "optional: true allows association without existence check" do
+    patient = Patient.new(
+      practice_id: practices(:one).id,
+      first_name: "Test",
+      last_name: "Patient",
+      date_of_birth: 30.years.ago,
+      phone: "555-1234",
+      email: "test@example.com"
+    )
+
+    assert patient.valid?
+    assert_not_nil patient.practice
+  end
 end
