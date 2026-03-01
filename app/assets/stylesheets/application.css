@@ -8,3 +8,84 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+/* Toast Notifications for Action Cable */
+#toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.toast {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transform: translateX(450px);
+  transition: transform 0.3s ease-in-out;
+  min-width: 300px;
+}
+
+.toast.show {
+  transform: translateX(0);
+}
+
+.toast-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  color: #666;
+}
+
+.toast-close:hover {
+  color: #333;
+}
+
+.toast-body {
+  padding: 12px 16px;
+}
+
+.toast-body p {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.toast-body small {
+  color: #666;
+  font-size: 0.85em;
+}
+
+.toast-created .toast-header {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.toast-updated .toast-header {
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+  color: #0c5460;
+}
+
+.toast-destroyed .toast-header {
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+  color: #856404;
+}
