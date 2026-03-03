@@ -1,0 +1,27 @@
+<% cache medical_record_row do %>
+  <tr style="border-bottom: 1px solid #eee;">
+    <td style="padding: 12px;"><%= medical_record_row.patient&.full_name || "Unknown" %></td>
+    <td style="padding: 12px;"><%= medical_record_row.recorded_at&.strftime("%b %d, %Y") %></td>
+    <td style="padding: 12px;"><%= truncate(medical_record_row.diagnosis, length: 50) %></td>
+    <td style="padding: 12px; text-align: center;">
+      <% if medical_record_row.x_ray_image.attached? %>
+        <span style="color: green; font-size: 20px;" title="X-ray attached">&#10003;</span>
+      <% else %>
+        <span style="color: #ccc;">-</span>
+      <% end %>
+    </td>
+    <td style="padding: 12px; text-align: center;">
+      <% if medical_record_row.lab_results.attached? %>
+        <span style="color: green;" title="<%= medical_record_row.lab_results.count %> lab results">
+          &#10003; (<%= medical_record_row.lab_results.count %>)
+        </span>
+      <% else %>
+        <span style="color: #ccc;">-</span>
+      <% end %>
+    </td>
+    <td style="padding: 12px; text-align: center;">
+      <%= link_to "View", medical_record_row, style: "margin-right: 10px;" %>
+      <%= link_to "Edit", edit_medical_record_path(medical_record_row) %>
+    </td>
+  </tr>
+<% end %>
