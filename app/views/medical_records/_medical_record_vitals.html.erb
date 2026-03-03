@@ -1,0 +1,36 @@
+<% cache [medical_record, "vitals"] do %>
+  <% if medical_record.weight.present? %>
+    <div>
+      <strong>Weight:</strong>
+      <%= medical_record.weight %> kg
+    </div>
+  <% end %>
+
+  <% if medical_record.height.present? %>
+    <div>
+      <strong>Height:</strong>
+      <%= medical_record.height %> cm
+    </div>
+  <% end %>
+
+  <% if medical_record.heart_rate.present? %>
+    <div>
+      <strong>Heart Rate:</strong>
+      <%= medical_record.heart_rate %> bpm
+    </div>
+  <% end %>
+
+  <% if medical_record.temperature.present? %>
+    <div>
+      <strong>Temperature:</strong>
+      <%= medical_record.temperature %>&deg;C
+    </div>
+  <% end %>
+
+  <% if medical_record.blood_pressure %>
+    <div>
+      <strong>Blood Pressure:</strong>
+      <%= medical_record.blood_pressure %> mmHg
+    </div>
+  <% end %>
+<% end %>

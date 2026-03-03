@@ -15,7 +15,7 @@
       <%= medical_record.recorded_at&.strftime("%B %d, %Y at %I:%M %p") %>
     </div>
 
-    <%= render "medical_record_vitals", medical_record: medical_record %>
+    <%= render "medical_records/medical_record_vitals", medical_record: medical_record %>
 
     <% if medical_record.diagnosis.present? %>
       <div>
@@ -45,6 +45,6 @@
       </div>
     <% end %>
 
-    <%= render "medical_record_files", medical_record: medical_record %>
+    <%= render "medical_records/medical_record_files", medical_record: medical_record %>
   </div>
 <% end %>
