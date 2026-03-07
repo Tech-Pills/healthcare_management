@@ -1,5 +1,5 @@
 class MedicalRecord < ApplicationRecord
-  belongs_to :patient
+  belongs_to :patient, touch: true
   belongs_to :appointment, optional: true
 
   has_one_attached :x_ray_image
