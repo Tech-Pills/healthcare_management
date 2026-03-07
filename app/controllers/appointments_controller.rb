@@ -4,6 +4,16 @@ class AppointmentsController < ApplicationController
   # GET /appointments or /appointments.json
   def index
     @appointments = Appointment.all
+
+    tenant = ApplicationRecord.current_tenant
+    @clinic_stats = Rails.cache.fetch("#{tenant}/clinic_stats", expires_in: 15.minutes) do
+      {
+        total_patients: Patient.count,
+        total_appointments: Appointment.count,
+        total_staff: Staff.count,
+        upcoming_appointments: Appointment.where("scheduled_at > ?", Time.current).count
+      }
+    end
   end
 
   # GET /appointments/1 or /appointments/1.json

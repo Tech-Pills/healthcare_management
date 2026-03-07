@@ -3,7 +3,7 @@ class MedicalRecordsController < ApplicationController
 
   # GET /medical_records or /medical_records.json
   def index
-    @medical_records = MedicalRecord.all
+    @medical_records = MedicalRecord.includes(:patient, x_ray_image_attachment: :blob, lab_results_attachments: :blob).all
   end
 
   # GET /medical_records/1 or /medical_records/1.json
@@ -80,7 +80,7 @@ class MedicalRecordsController < ApplicationController
 
   private
     def set_medical_record
-      @medical_record = MedicalRecord.find(params.expect(:id))
+      @medical_record = MedicalRecord.includes(:patient, x_ray_image_attachment: :blob, lab_results_attachments: :blob).find(params.expect(:id))
     end
 
     def medical_record_params
