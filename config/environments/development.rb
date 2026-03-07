@@ -34,6 +34,9 @@ Rails.application.configure do
   # Track variants to avoid repeated processing
   config.active_storage.track_variants = true
 
+  # Use mini_magick for image processing (ImageMagick must be installed)
+  config.active_storage.variant_processor = :mini_magick
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 

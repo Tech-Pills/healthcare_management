@@ -16,33 +16,7 @@
     </tr>
   </thead>
   <tbody id="medical_records">
-    <% @medical_records.each do |medical_record| %>
-      <tr style="border-bottom: 1px solid #eee;">
-        <td style="padding: 12px;"><%= medical_record.patient&.full_name || "Unknown" %></td>
-        <td style="padding: 12px;"><%= medical_record.recorded_at&.strftime("%b %d, %Y") %></td>
-        <td style="padding: 12px;"><%= truncate(medical_record.diagnosis, length: 50) %></td>
-        <td style="padding: 12px; text-align: center;">
-          <% if medical_record.x_ray_image.attached? %>
-            <span style="color: green; font-size: 20px;" title="X-ray attached">✓</span>
-          <% else %>
-            <span style="color: #ccc;">-</span>
-          <% end %>
-        </td>
-        <td style="padding: 12px; text-align: center;">
-          <% if medical_record.lab_results.attached? %>
-            <span style="color: green;" title="<%= medical_record.lab_results.count %> lab results">
-              ✓ (<%= medical_record.lab_results.count %>)
-            </span>
-          <% else %>
-            <span style="color: #ccc;">-</span>
-          <% end %>
-        </td>
-        <td style="padding: 12px; text-align: center;">
-          <%= link_to "View", medical_record, style: "margin-right: 10px;" %>
-          <%= link_to "Edit", edit_medical_record_path(medical_record) %>
-        </td>
-      </tr>
-    <% end %>
+    <%= render partial: "medical_record_row", collection: @medical_records, cached: true %>
   </tbody>
 </table>
 

@@ -2,6 +2,18 @@
 
 <%= render @patient %>
 
+<h3>Medical Records</h3>
+<% cache @patient do %>
+  <% if @medical_records.any? %>
+    <% @medical_records.each do |medical_record| %>
+      <%= render medical_record %>
+      <hr>
+    <% end %>
+  <% else %>
+    <p>No medical records yet.</p>
+  <% end %>
+<% end %>
+
 <div>
   <%= link_to "Edit this patient", edit_patient_path(@patient) %> |
   <%= link_to "Back to patients", patients_path %>

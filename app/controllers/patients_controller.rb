@@ -8,6 +8,9 @@ class PatientsController < ApplicationController
 
   # GET /patients/1 or /patients/1.json
   def show
+    @medical_records = @patient.medical_records
+      .includes(:patient, x_ray_image_attachment: :blob, lab_results_attachments: :blob)
+      .order(recorded_at: :desc)
   end
 
   # GET /patients/new
