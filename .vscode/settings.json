@@ -3,6 +3,14 @@
     "editorRuler.foreground": "#4093ff",
     "activityBar.background": "#16322E",
     "titleBar.activeBackground": "#1E4740",
-    "titleBar.activeForeground": "#F5FBFA"
+    "titleBar.activeForeground": "#F5FBFA",
+    "titleBar.inactiveBackground": "#16322E",
+    "titleBar.inactiveForeground": "#F5FBFA",
+    "statusBar.background": "#16322E",
+    "statusBar.foreground": "#F5FBFA",
+    "statusBar.debuggingBackground": "#16322E",
+    "statusBar.debuggingForeground": "#F5FBFA",
+    "statusBar.noFolderBackground": "#16322E",
+    "statusBar.noFolderForeground": "#F5FBFA"
   }
 }
